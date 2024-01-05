@@ -356,7 +356,7 @@ params:
     btnName: Mail me
     formspree:
       enable: true # `contact.email` value will be ignored
-      formId: https://formspree.io/f/xpzvzkny # Take it from your form's endpoint, like 'https://formspree.io/f/abcdefgh'
+      formId: xpzvzkny # Take it from your form's endpoint, like 'https://formspree.io/f/abcdefgh'
       emailCaption: "Enter your email address"
       messageCaption: "Enter your message here"
 

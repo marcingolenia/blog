@@ -126,7 +126,7 @@ params:
     intro: "Hi, my name is"
     title: "Marcin."
     subtitle: "I build products while growing myself and everyone around me."
-    content: "I am a polyglot (but F# is my love) software engineer who believes that quality and management should be an activity, not a role. I believe in DevOps culture and agile software development as stated in the original manifesto."
+    content: "I am a polyglot (but F# is my love) software engineer who believes that quality and management should be an activity, not a role. I believe in DevOps culture and Agile software development as stated in the original manifesto."
     image: /images/hero.svg
     bottomImage:
       enable: true
@@ -169,7 +169,7 @@ params:
 
   # Experience
   experience:
-    enable: true
+    enable: false
     # title: "Custom Name"
     items:
       - job: "Senior Software Developer"
@@ -234,7 +234,7 @@ params:
 
   # Education
   education:
-    enable: true
+    enable: false
     # title: "Custom Name"
     index: false
     items:
@@ -277,7 +277,7 @@ params:
 
   # Achievements
   achievements:
-    enable: true
+    enable: false
     # title: "Custom Name"
     items:
       - title: Google kickstart runner
@@ -299,7 +299,7 @@ params:
 
   # projects
   projects:
-    enable: true
+    enable: false
     # title: "Custom Name"
     items:
       - title: Hugo Profile
@@ -352,13 +352,13 @@ params:
     enable: true
     # title: "Custom Name"
     content: My inbox is always open. Whether you have a question or just want to say hi, I’ll try my best to get back to you!
-    email: gurusabarisha@gmail.com
+    email: marcingolenia@gmail.com
     btnName: Mail me
-    # formspree:
-    #   enable: true # `contact.email` value will be ignored
-    #   formId: abcdefgh # Take it from your form's endpoint, like 'https://formspree.io/f/abcdefgh'
-    #   emailCaption: "Enter your email address"
-    #   messageCaption: "Enter your message here"
+    formspree:
+      enable: true # `contact.email` value will be ignored
+      formId: https://formspree.io/f/xpzvzkny # Take it from your form's endpoint, like 'https://formspree.io/f/abcdefgh'
+      emailCaption: "Enter your email address"
+      messageCaption: "Enter your message here"
 
   footer:
     recentPosts:

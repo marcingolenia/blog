@@ -1,7 +1,0 @@
-name = "Marcin Golenia blog"
-license = "MIT"
-licenselink = "https://github.com/marcingolenia/blog/blob/master/LICENSE"
-description = "about product building, software engineering, craftsmanship, architecture..."
-homepage = "https://mcode.it/"
-tags = ["Blog", "Personal"]
-min_version = "0.68.0"

@@ -8,8 +8,8 @@ description: >-
 featuredpost: false
 featuredimage: /img/cf.png
 tags:
-  - 'F#'
-  - 'C#'
+  - fsharp
+  - csharp
 ---
 ## 1. Introduction
 If you are interested just in making dapper more usable in F# or conversion between F# option <-> C# Nullable then this is the article for you. However, if you are looking for how-to integrate C# with F# in general you should also read my previous article about [composing dependencies in C# and F# hybrid solution](../2020-06-14-fsharp_with_csharp).

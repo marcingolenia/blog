@@ -8,7 +8,7 @@ description: >-
 featuredpost: false
 featuredimage: /img/root_tree_m.png
 tags:
-  - 'F#'
+  - fsharp
 ---
 
 > This post is part of the F# Advent Calendar 2020. Special thanks to Sergey Tihon for organizing this! [Check out all the other great posts there!](https://sergeytihon.com/2020/10/22/f-advent-calendar-in-english-2020/).

@@ -15,8 +15,8 @@ description: >-
 featuredpost: false
 featuredimage: /img/cf.png
 tags:
-  - 'F#'
-  - 'C#'
+  - fsharp
+  - csharp
 ---
 ## 1. Introduction
 Code samples with EventDispatcher and CompositionRoot will use Autofac but the presented techniques should be easily applicable to Microsoft IoC Container and MediatR. Samples holds some mysterius ``_fSqlConnectionFactory`` but let me write about easy Dapper Wrapper in F# and Option/Nullable interop in next post.

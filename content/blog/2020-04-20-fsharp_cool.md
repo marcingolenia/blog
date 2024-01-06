@@ -7,7 +7,7 @@ description: >-
 featuredpost: false
 featuredimage: /img/fsharp.webp
 tags:
-  - 'F#'
+  - fsharp
 ---
 ## 1. Is F# modern language?
 Most of the Fsharpers are Csharpers first. Let me write about C# a little bit. Let's look into new C# 8.0 features that you already know and love:

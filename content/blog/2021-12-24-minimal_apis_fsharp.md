@@ -8,7 +8,7 @@ description: >-
 featuredpost: true
 featuredimage: /img/api.webp
 tags:
-  - 'F#'
+  - fsharp
 ---
 ## 1. Introduction
 

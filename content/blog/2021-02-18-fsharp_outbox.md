@@ -8,7 +8,7 @@ description: >-
 featuredpost: true
 featuredimage: /img/outbox.png
 tags:
-  - 'F#'
+  - fsharp
   - Patterns
 ---
 ## 1. Introduction

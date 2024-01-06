@@ -8,7 +8,7 @@ description: >-
 featuredpost: true
 featuredimage: /img/playwright/playwright.webp
 tags:
-  - 'F#'
+  - fsharp
 ---
 ## 1. Introduction
 Let's make few important points about [Playwright](https://playwright.dev/) before we start; 

@@ -13,7 +13,7 @@ tags:
   - sqlserver
   - postgres
   - database migrations
-  - 'F#'
+  - fsharp
 ---
 I won't introduce you to docker or Postgres - you should have some basic knowledge in this area although I will follow you with every step. When it comes to DbUp it is a .NET Library that helps you deploy changes to your SQL database. It supports:
 

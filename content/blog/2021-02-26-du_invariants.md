@@ -8,7 +8,7 @@ description: >-
 featuredpost: true
 featuredimage: /img/du_invariants/agg_rules2.png
 tags:
-  - 'F#'
+  - fsharp
   - DDD
 ---
 ## 1. Introduction

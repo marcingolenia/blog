@@ -8,7 +8,7 @@ description: >-
 featuredpost: false
 featuredimage: /img/slinux.png
 tags:
-  - 'F#'
+  - fsharp
 ---
 ## 1. Introduction
 Lately, I got inspired by the python program [spotify-cli-linux](https://github.com/pwittchen/spotify-cli-linux) written by my friend. I decided to write the port of this app in .net core in F#. If you can't way to see the source code [here it is](https://github.com/marcingolenia/spotify-cli-linux).

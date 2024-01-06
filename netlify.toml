@@ -1,6 +1,6 @@
 [build]
 publish = "public"
-command = 'echo -e "\ngoogleAnalytics: $GOOGLE_ANALYTICS \ndisqusShortname: $DISQUS_SHORTNAME \n" >> hugo.yaml && hugo --gc --minify'
+command = 'hugo --gc --minify'
 
 [context.production.environment]
 HUGO_VERSION = "0.92.0"

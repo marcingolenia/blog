@@ -1,0 +1,23 @@
+body.light .contrast {
+    filter: invert(1)
+}
+
+body.dark .contrast {
+    filter: invert(0)
+}
+
+body.light .contrast-reverse {
+    filter: invert(0)
+}
+
+body.dark .contrast-reverse {
+    filter: invert(1)
+}
+body {
+    font-family: BlinkMacSystemFont, -apple-system, Segoe UI, Oxygen, Ubuntu, Roboto, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, Helvetica, Arial, sans-serif !important;
+}
+
+.secondary-font,
+#secondary-font {
+    font-family: BlinkMacSystemFont, -apple-system, Segoe UI, Oxygen, Ubuntu, Roboto, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, Helvetica, Arial, sans-serif !important;
+}

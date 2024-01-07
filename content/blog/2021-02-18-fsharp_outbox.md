@@ -1,17 +1,14 @@
 ---
-templateKey: blog-post
-title: >-
-  Outbox pattern in F# with polling publisher
+title: Outbox pattern in F# with polling publisher
 date: 2021-02-18T11:35:00.000Z
 description: >-
   If you are implementing more than one service and you need to establish asynchronous communication in-between, or if you need bullet-proof asynchronous communication with 3rd party services the outbox pattern might be a handy tool. Let's look at how can we implement one in the beloved F#!
-featuredpost: true
-featuredimage: /img/outbox.png
+draft: false
+image: /images/outbox.png
 tags:
   - fsharp
-  - Patterns
 ---
-## 1. Introduction
+## Introduction
 
 Let's consider a simple use-case to give you a full understanding of when the outbox pattern can be useful. If you know this and that about it, feel free to skip the introduction. If you are eager to see the full source code here's the link: https://github.com/marcingolenia/fsharp-outbox.
 
@@ -26,33 +23,33 @@ I am not a fan of UML, but for learning or explanations it is just fine so let's
 
 Let's say that invoicing is done by another service and another team. You agreed on the published language "order placed" to exchange the data. Next, let's keep things simple, and let's neglect the doubts you might have like "What about payments?" or "Why the invoice is not being sent?". I need to make you understand the outbox pattern, not to build a perfect business use-case. So you might plan to build something like this:
 
-![](/img/outbox/outbox1.png)
+![](/images/outbox/outbox1.png)
 
 And it should work in most cases, unless...
 
-#### 1.1 The problem 
+### The problem 
 Unless the application will die just after saving the order in the database, or the message broker will not be reachable (network problems, any reason...):
 
-![](/img/outbox/outbox2.png)
+![](/images/outbox/outbox2.png)
 
 You might try to do things in a different order. What if we publish the message first, then we save changes in the database? As you can guess it is now possible to emit the message but the order won't be saved because the database can't be reached:
 
-![](/img/outbox/outbox3.png)
+![](/images/outbox/outbox3.png)
 
 Now we have to deal with an invoice for a not existing order. Of course, we can make our best to reduce the risk by introducing retries, but even with 100 retries eventually, you will meet the problem. 
 
-#### 1.2 The solution
+### The solution
 As you may guess (because of the title of the blog post) the solution here is to use the outbox pattern. You can also read a little bit about it on the microservices.io page [1] and related book [8]. If you do, please pay attention to the term ** High-level domain events**. What the hell is that? More important domain events? No - these are events that have to be distinguished from domain events as they directly cause side effects in different domains. I encourage you to name it differently. Kamil Grzybek in his article about the outbox pattern in C# [3] comes up with "domain notification". I like it, let's stick to this name. 
 
 The idea behind the outbox is to create outbox storage in the same database you mutate the state and use a transaction to achieve atomicity. In other words; save the new order and save the "order placed" domain notification, if one of these operations fails, don't commit the transaction, so changes (if any) are rolled back. This mechanism is reflected in the pattern name: "Transactional Outbox". Then another process picks up the pending notification and distributes it in the desired way. I have made one sequence diagram more that shows this:
 
-![](/img/outbox/outbox4.png)
+![](/images/outbox/outbox4.png)
 
 Keep in mind one important thing - the outbox pattern helps to achieve "at least once delivery". In corner cases, you may end up with message duplicates (when a notification message is published and outbox storage goes down before "marking" the notification as processed). If you need exactly-once delivery you might google a little bit for the inbox pattern (or wait for my post in the future 😉). But make sure you can't go with Idemponent receiver - this guy will make your life simpler. You can read a general description here [4] and a more detailed one in the Enterprise Integration Patterns book [9].
 
 Time to get serious and write some F# 💪
 
-## 2. Outbox in F#'
+## Outbox in F#'
 We will need 2 functions to implement Outbox and a type to represent an outbox message.
 ```fsharp
   type OutboxMessage =
@@ -117,7 +114,7 @@ to the project with your domain notifications. Keep in mind that it can be anyth
 
 Full source code can be found on GitHub [11]. The transactional outbox pattern is ready. We only need 2 types (including empty interface) and 2 functions - as simple as that. The rest are just dependencies and hosting. Let's look into that.
 
-#### 2.1 Persistence dependencies
+### Persistence dependencies
 I have decided to use Postgres. As you can see I have decoupled the persistence from the outbox, so feel free to replace it with anything you want. 
 First, let's create a schema for our outbox. It may look like this:
 ```sql
@@ -173,7 +170,7 @@ The two first functions are basic stuff. Let me comment on the last one. The `RE
 
 Note that the functions signatures match the outbox `save`, `read`, `setProcessed` functions signatures.
 
-#### 2.2 Publisher dependency
+### Publisher dependency
 
 For publishing messages, I've decided to pull in a library that makes the underlying message broker just a matter of configuration, despite I decided to use RabbitMQ. I've picked up Rebus [6] just because I wanted to put my fingers on something new for me. In the past, I've also used MassTransit which is also great. To be honest, I like Rebus more now, the configuration is easier and it seems that (by a chance or not) fits better with F# compared to MassTransit (in the team we were not able to write consumers without implementing the `IConsumer<>` interface). Let me present some helping-functions to deal with message publishing and subscription:
 
@@ -237,7 +234,7 @@ Let's talk about the code now.
 * `registerHandler` function is the next wrapper that will help us to register handlers. We won't be using any DI Container, so let's use `BuiltinHandlerActivator` which is a nice Rebus thing that fits well into the world of partial application and function-based handlers (not classes that implements `IHandler` interface). This beats MassTransit regarding F# world - As far as I know, it doesn't offer anything like that out-of-the-box.
 * `markerNeighbourTypes` and `turnSubscriptionsOn` functions allow us easily to subscribe asynchronously to messages of the desired type. The first function can be changed to any other function that returns an array of types, you can also remove it completely and subscribe to explicit types if you wish. I decided to use reflection and establish a mini-convention, so I can forget about adding the next subscriptions as long as they are kept in the same module. Good stuff for small thins. You will see that I use these functions together - I simply pass `markerNeighbourTypes` to `turnSubscriptionsOn`.
 
-## 3. Nice stuff you showed here, but will it work? 
+## Nice stuff, but will it work? 
 Of course it will! It was working as soon as I ended writing the code. The test was green ;) Here it is:
 ```fsharp
 [<Fact>]
@@ -278,11 +275,12 @@ Lead me to guide you through the test (but I hope that you already know everythi
 8. And check if what we give (publish) is what we get (received from subscription).
 
 Keep in mind that the test requires the Postgres database and RabbitMq to be up and running. In the repo there is a docker-compose file, so you can set this up in one-line command. When you run the test you should see some side-effects using rabbit management plugin like follows:
-![](/img/outbox/rabbit.png)
+
+![](/images/outbox/rabbit.png)
 
 Of course, the test should be green. 
 
-## 4. Hosting the outbox - Polling publisher
+## Hosting: Polling publisher
 So... let's do the boring stuff in Giraffe (because almost everything is running on the web nowadays) and job scheduler - Quartz.NET (In the past I've used Hangfire - but in C# - for this and it worked very well so you may try this instead). The job scheduler and `Outbox.execute` function combination is also a pattern and it is named "Polling publisher" [2][8]. This will be a simple app that;
 1. Will expose an endpoint that you can call to commit a domain notification. 
 2. Will subscribe to the `WhateverHappened` notification.
@@ -292,7 +290,7 @@ So... let's do the boring stuff in Giraffe (because almost everything is running
 
 All that with composition root, partial application, and F#. 
 
-#### 4.1 Domain notification handler
+### Domain notification handler
 This is the easiest part here. It looks just like this:
 ```fsharp
 module Handlers =
@@ -305,7 +303,7 @@ module Handlers =
 ```
 Cool isn't it? No `IHandler<>` implementation :) I like that one.
 
-#### 4.2 Giraffe HttpHandler with endpoint for Outbox.Commit
+### Giraffe HttpHandler with endpoint for Outbox.Commit
 No drama here, if you ever wrote something in giraffe and read my [previous post about composition root and partial application](../2020-12-11-fsharp_composition_root/) you should be bored.
 ```fsharp
 module HttpHandlers =
@@ -331,7 +329,7 @@ module HttpHandlers =
  
 The `commit: obj list -> Async<unit>` is something we already have (`Outbox.commit`), generateId is a simple function that returns int64 (you can see its implementation in the repo - simple stuff with IdGen library [7]). Normally you would call some workflow from the app layer, fetch some kind of aggregate from somewhere (database), apply some domain operations, and then save it with the commit function in the same `TransactionScope`. I decided to make my life easier here - so I publish directly from the endpoint.
 
-#### 4.3 Glueing stuff together - CompositionRoot
+### Glueing stuff together - CompositionRoot
 Let's gather the dependencies now and compose the dependency tree:
 ```fsharp
 namespace WebHost
@@ -377,7 +375,7 @@ We pass the `pubBus` to the `Outbox.execute` - so we have one connection for pub
 
 Finally, we compose Outbox functions and the tiny-shiny GenerateId function. Keep in mind that it would be even better to [split the composition root to 2-levels (so we can test stuff without publishing events)](../2020-12-11-fsharp_composition_root/).
 
-#### 4.4 Program and EntryPoint
+### Program and EntryPoint
 We are close here to what Giraffe provides in its docs. The main differences are that we compose the composition root here, we subscribe to messages, and we add a hosted service - with quartz job and the polling publisher that uses the `Outbox.execute` function.
 
 ```fsharp
@@ -411,7 +409,7 @@ module App =
       0
 ```
 
-#### 4.5 QuartzHosting Service
+### QuartzHosting Service
 Let me show you now how I have implemented Hosted Service with Quartz scheduler. 
 
 ```fsharp
@@ -464,7 +462,7 @@ Let's go through this step by step
 
 At this point, you should already have an idea of how to add more Quartz Jobs to the Quartz Hosted Services if you need them. Let's see how a Quartz Job may look like in F#.
 
-#### 4.6 Polling Publisher Quarzt Job
+### Polling Publisher Quarzt Job
 
 To create the job we need 3 things. 
 1. A trigger - Quartz comes with a handful set of methods which by using method chaining can lead you to configure different triggers. It also can accept a Cron expression if you prefer.
@@ -501,10 +499,10 @@ module PollingPublisher =
 And That's it! We have all the pieces. That was a long way, let me remind you that there is a repository with the source code, tested outbox and CI set up [11].
 
 
-## 5. Testing
+## Testing
 I tried this implementation in different ways - I left it running for a couple of hours and hitting the endpoint from time to time, I filled the queue with pending messages and then I've connected with the app, I tried to publish several dozen messages at once - everything is working. When I stop the app the connections with channels are closing nicely. But! If you will find something please let me know - I will try to improve my solution or simply submit me a PR.
 
-## 6. Summary
+## Summary
 I hope we filled a gap in the F# world. 
 * I wasn't able to find any implementation of transactional outbox pattern in F#. 
 * I was not able to find any example of Quartz.Net in F# and Giraffe.

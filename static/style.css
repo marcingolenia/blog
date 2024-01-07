@@ -21,3 +21,7 @@ body {
 #secondary-font {
     font-family: BlinkMacSystemFont, -apple-system, Segoe UI, Oxygen, Ubuntu, Roboto, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, Helvetica, Arial, sans-serif !important;
 }
+.social {
+    display: flex;
+    justify-content: space-between;
+}

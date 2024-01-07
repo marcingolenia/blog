@@ -112,10 +112,9 @@
   border-radius: 0.7em !important;
   margin: 5px;
   margin-bottom: 2em;
-  padding: 2em;
+padding: 1em;
   background-color: var(--secondary-color) !important;
-  color: var(--text-secondary-color) !important;
-  max-height: 450px;
+color: var(--text-secondary-color) !important;
 }
 
 #single .page-content pre > code {

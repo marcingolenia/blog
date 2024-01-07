@@ -1,19 +1,18 @@
 ---
-templateKey: blog-post
 title: >-
   F# Dependency Injection - how to compose dependencies with partial application and don't fail with tests
 date: 2020-12-11T19:35:00.000Z
 description: >-
   One question you might ask yourself before starting a bigger project in F# How to inject dependencies? Let me show you how we used partial application to achieve loosely coupled testable components that can be tested in isolation or together in a broader perspective (acceptance tests). I will use Giraffe as the host, but the technique is free from any framework dependencies.
-featuredpost: false
-featuredimage: /img/root_tree_m.png
+draft: false
+image: /images/root_tree_m.png
 tags:
   - fsharp
 ---
 
 > This post is part of the F# Advent Calendar 2020. Special thanks to Sergey Tihon for organizing this! [Check out all the other great posts there!](https://sergeytihon.com/2020/10/22/f-advent-calendar-in-english-2020/).
 
-## 1. Introduction
+## Introduction
 First, let me make sure that you know what composition root is. I will take the definition from Dependency Injection Principles, Practices, and Patterns book [1]:
 
 > DEFINITION: A Composition Root is a single, logical location in an application where modules are composed together [1].
@@ -22,11 +21,11 @@ It also answers the important question "Where should we compose object graphs?" 
 
 Let's create such a place in the Giraffe F# based project [(a functional ASP.NET Core micro web framework [2])](https://github.com/giraffe-fsharp/Giraffe) together with .NET 5.0. We will be using the partial application to achieve our goal. Note that in functional programming we can also try different techniques: "Reader Monad" and the "Free Monad" but these techniques are far harder. I will tackle them in the future on my blog.
 
-#### 1.1 Why this post?
+### Why this post?
 The post is heavily inspired by Scott Wlaschin's post about Dependency Injection in F# [2]. It is great! It will give you strong fundaments on the topic. Mine post focuses heavily on implementation, Scott's more on the partial application as IoC technique in general so make sure you read it and please come back - I have some answers for you once you will try to implement the described solution in a real project. There is a comment in the post by Konstantin at the bottom of the page. He asks about unit, integration, Acceptance Tests, and how it may look like in F# - I have the answer here. 
 Also when I started to implement IoC at my work we quickly run into issues with testing that were caused by one piece composition root. I came across StackOverflow issue [3] which addressed my problem. It took me on the right track which I wanted to describe in the post. To fully understand the issue we have to face the problem first.
 
-#### 1.2 The sample solution
+### The sample solution
 Everything is based on real code which is available on GitHub here: https://github.com/marcingolenia/FsharpComposition. You might want to clone the repository, to see how it is done. 100% real stuff, no bullshit:
 * .NET 5.0 with Giraffe based API.
 * Docker with PostgreSql + script that creates database and table (you have to run it by yourself).
@@ -40,7 +39,7 @@ Everything is based on real code which is available on GitHub here: https://gith
 
 I made this for you :) Don't hesitate to use it or submit a PR with improvements!
 
-## 2. Domain, application layer and httpHandler
+## Domain, application layer and httpHandler
 Let's imagine the following use case:
 1. Create a stock item with the name and amount of available items.
 2. Read the created item.
@@ -155,7 +154,7 @@ module HttpHandler =
 ```
 I have placed three question marks - that is what we gonna do now.
 
-## 3. Inflexible Composition root implementation
+## Inflexible Composition root
 Let's start with the `>=> GET >=> routef "/stockitem/%d"` route. If you have read the Scott's post[2] you should end up with something like that (at least the type should match);
 `InflexibleCompositionRoot.fs`
 ```fsharp
@@ -231,13 +230,13 @@ Again, if you are interested in IdGenerator please see the code by yourself. Hav
 
 So what's the fuss? 
 
-## 4. Problems with the inflexible implementation - Testing
+## Problems with the inflexible implementation
 
 Testing is the problem. Note the signature of `CreateStockItem` function from Composition root: `CreateStockItem: int64 -> string -> int -> Async<unit>`. It just takes int64 (id), string (name) and int (amount) and returns asynchronously nothing. We are forced to use the database in our acceptance tests. You are still able to write unit tests for the domain or integration tests for data access objects (DAOs) including database interaction. There are such tests in the repo.
 
 Maybe sometimes you want to write acceptance tests with all the dependencies included but sometimes you won't (external services calls - do you want to have your tests failed because not-your service in the test environment is down?). Let me give you the clarification in code...
 
-#### 4.1 Acceptance tests
+### Acceptance tests
 I will skip the integration test and unit test - they are too easy for us. Let's write the acceptance test for the use case. Reminder:
 >Let's imagine the following use case: Create a stock item with the name and amount of available items and Read the created item.
 
@@ -310,30 +309,30 @@ The alternative is to compose the function without the composition root and pass
 
 Let me show you now implementation of a more flexible composition root.
 
-## 5. Flexible Composition root implementation
+## Flexible Composition root implementation
 I didn't get the proposed solution on SO question [3] at first. I came up with a metaphor that helped me to explain it to others once I did. Let me know explain it to you. 
 
 So... CompositionRoot... what have roots? Right! A tree. Imagine that we have to build the tree now and let's start from the top. Bear with me, once we go through you will get the idea!
 
-#### 5.1 Leaves
+### Leaves
 Leaves are the IO operations associated with different kinds of dependencies side effects. Databases, Http, WCF... you name the next one. We should have them a lot of, to have a decent tree! For us, it will be the `QueryStockItemBy` and `GenerateId` and the 3 functions from the `StockItemWorkflows.IO` type.
-![](img/leaves.png)
+![](/images/leaves.png)
 
-#### 5.2 Trunk
+### Trunk
 The trunk will take all of those dependencies into one place. The trunk will be a support for our leaves. Settings will be passed right into the trunk and the trunk will distribute the proper pieces of settings into the leaves. 
-![](img/tree.png)
+![](/images/tree.png)
 
 
-#### 5.3 Root
+### Root
 The Root will hide all the complexity. Having the root we will be able to call the right "workflow" and then it will go through the tunk to the leaves. This root will be almost identical to the composition root that we already implemented.
-![](img/root_tree.png)
+![](/images/root_tree.png)
 
 * Leaves = workflows IO dependencies
 * Trunk = host of all the Leaves + common IO dependencies needed in different places (like id generation).
 * Root = proper composition root.
 
 Now let me show you the implementation. After that, I will show you the benefits of it in the tests. I used to structure the flexible composition root like this;
-![](img/flex_root.png)
+![](/images/flex_root.png)
 
 One of the leaves may look just like that; 
 `StockItemWorkflowsDependencies.fs`
@@ -425,7 +424,7 @@ let main args =
         .Run()
     0
 ```
-## 6. Testing with flexible composition root
+## Testing with flexible composition root
 It's time to see the benefits of such a structured composition root. We still write unit and integration tests in the same way. You can still write the acceptance tests in the same way or you can pass your custom-defined functions to form the dependency tree. We only have to be sure that the custom function has the same signature. That's a cool feature of functional programming that the function automatically behaves like an interface (first-class functions). Let's write a small helper that will support passing the custom functions as dependencies.
 `TestFlexibleCompositionRoot.fs`
 ```fsharp
@@ -462,7 +461,7 @@ let ``with Query -> StockItemById`` substitute (trunk: Trunk.Trunk) =
 ```
 
 This gives us very sexy intellisense: 
-![](img/root_inteli.png)
+![](/images/root_inteli.png)
 
 Time to rewrite our acceptance tests which checks the creation of the stock item. I already have tests with SQL queries in the dedicated project, so let's cut off the database dependencies:
 `Tests2.fs`
@@ -526,7 +525,7 @@ let ``GIVEN stock item was passed into request WHEN CreateStockItem THEN new sto
 ```
 That was a long way, wasn't it? Once you will try this approach you will stick to it believe me - the flexibility you have while writing your tests is worth it. 
 
-## 7. Wait! Isn't that a service locator that you do in HttpHandlers? 
+## Wait! Isn't that a service locator that you do in HttpHandlers? 
 Let's look again into the DI book [1] to bring the definition
 > A Service Locator supplies application components outside the Composition Root with access to an unbounded set of Volatile Dependencies.
 
@@ -539,17 +538,17 @@ In contradiction our composition root:
 2. CompositionRoot is not dragged around as redundant dependency. All of the CompositionRoot members should be used - so we are far from "redundant".
 3. All dependencies of our top-level component (HttpHandler) limit to the CompositionRoot and it is *obvious* that we want to associate specific "workflows" with given handlers. The "workflows" dependencies are obvious and explicit.
 
-## 7. Impure/pure sandwich aka imperative shell 
+## Impure/pure sandwich aka imperative shell 
 Before I write some conclusions, let me emphasize one thing here. This approach works extremely well with the imperative shell and functional core. You can read more on Mark Seeman's blog [4] and Gary Bernhardt's presentation [5]. In short: It is about moving the side effects functions to boundaries of the workflows (no `Async` in the domain, no synchronous operations which cause state changes elsewhere - for example in the database). This approach makes testing far easier, you get easy multithreading for IO stuff and makes reasoning about the program's state over much easier. 3 times easy! Do it!
 
-## 8. Conclusions
+## Conclusions
 I use this approach in my current project, the team is happy with both - testing strategy and the way the dependencies are being composed. By treating the composition root as a tree with leaves, trunk, and roots we can segregate our concerns - functions with side effects from pure functions. Note that I have used Giraffe as the host, but the composition root is free from any framework references. You should be able to use this way in any F# project.
 
-#### 8.1 Two small pieces of advice that can help you in the future
+### Two small pieces of advice that can help you in the future
 1. When your composition root will keep growing, consider making more roots. This will help you reason about dependencies. Remember that Composition Root is a single place, not a single type. 
 2. I've created a record type in StockItemWorkflows for IO Dependencies. Feel free to skip it - if you have one or two dependencies you may simply pass the functions with the right signature (like Scott does in his post [2]).
 
-## 9. EXTRA: Homework!
+## EXTRA: Homework!
 Try to write an acceptance test for removing items from the stock in both approaches. I wrote the "production code" for you already. This will fully help you understand how to do it. This approach works extremely well with TDD as well - try to extend the functionality with one more use-case; adding items to the stock, but write the tests first.
 - - -
 <b>References:</b><br/>

@@ -34,10 +34,8 @@
           </div>
           {{ end }} -->
           <article class="page-content p-2">
-            {{ .Description | emojify }}
-          </article>
-          <article class="page-content p-2">
-          {{ .Content | emojify }}
+            <p>{{ .Description | emojify }}</p>
+            <p>{{ .Content | emojify }}</p>
           </article>
         </div>
       </div>

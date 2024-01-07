@@ -1,16 +1,29 @@
-
-# HATEOAS in F#
+---
+title: "HATEOAS in F#"
+description: >-
+    Hypermedia as the engine of application state (HATEOAS) is 24 years old now! 
+    I am coding for more than 12 years and yet I didn't see it on production in projects I worked with. 
+    Why? Is it so bad? Complex?
+date: 2023-12-23T23:29:21+05:30
+draft: false
+tags:
+  - Markdown syntax
+  - Sample
+  - example
+image: /images/restglory.png
+---
 
 > This post is part of the F# Advent Calendar 2023. Special thanks to Sergey Tihon for organizing this! [Check out all the other great posts there!](https://sergeytihon.com/2023/10/28/f-advent-calendar-in-english-2023/)
 
-## 1. What is HATEOAS? 
+## What is HATEOAS? 
 You will have to read the whole post to get sense of it. The extra short definition of mine would be:
 Hypermedia as the engine of application state (HATEOAS) is the most mature form of a RESTful API:
-![Screenshot](glory.png)
+
+![](/images/restglory.png)
 
 It's about including links to resources to make it clear what is possible and what's not. 
 
-Sounds boring? Maybe, but it can save You from writing a lot of code and remove some coupling if you are ready 
+Sounds boring? Maybe, but it can save you from writing a lot of code and remove some coupling if you are ready 
 for some additional complexity.
 
 I will divide the topic into 3 parts:
@@ -18,12 +31,8 @@ I will divide the topic into 3 parts:
 2. Let's try LinkGenerator to see if it can simplify HATEOAS implementation (coming soon)
 3. Consuming RESTful API and leveraging HATEOAS in F# Fable app (coming soon)
 
-Hypermedia as the engine of application state (HATEOAS) is 24 years old now! 
-I am coding for more than 12 years and yet I didn't see it on production in projects I worked with. 
-Why? Is it so bad? Complex?
-
-## 2. The problem 
-Let's say that You are an software engineer and You are supposed to create a house allocation app for
+## The problem 
+Let's say that you are an software engineer and you are supposed to create a house allocation app for
 Hogwarts. 
 1. List houses
 2. List house students
@@ -177,14 +186,14 @@ let endpoints =
       ]
     ]
 ```
-But wait... I've done all the code in the problem part... Why? Because we can still do better. Let me ask You...
+But wait... I've done all the code in the problem part... Why? Because we can still do better. Let me ask you:
 1. How someone may now that the `/houses` endpoint does exist? How can we make sure that our API is discoverable? 
 2. How can the consumer of the API know what is possible?
 
 This two questions are related, I just wanted to emphasize the importance of it. If the API consumer doesn't
 know the answers to this questions the only thing to do is to learn about it from the docs (like swagger), implement some 
 logic on the frontend and pray that no one will do a breaking change. 
-## 3. The solution 
+## The solution 
 Swagger? Yes, that's it. The blog post is over... :D Swagger provides a documentation of all endpoints, 
 we can generate clients from OpenApi spec, but does it make our API discoverable? Let me bring my point of view here on 
 discoverable vs documented:
@@ -194,9 +203,9 @@ discoverable vs documented:
 > - Documented: Formalized information 
 > - Discoverable: Exploratory learning
 
-The two serve different purposes and are not mutually exclusive. You can have one without the other, and You can have both.
+The two serve different purposes and are not mutually exclusive. you can have one without the other, and you can have both.
 
-### 3.1 Without HATEOAS
+### Without HATEOAS
 So let's talk about 
 > only admin can delete student
 > 
@@ -219,7 +228,7 @@ is possible with the API. So we fetch roles/permissions and we check them on FE 
 buttons and then we do validate the actions on BE. HATEOAS is about making the workflow explicit by leveraging
 hypermedia, so the API consumers don't have to reproduce the logic on their side. 
 
-### 3.2 With HATEOAS
+### With HATEOAS
 We will focus now on discoverability. A common practice to inform API clients what's possible is to
 implement `OPTIONS` to return the list of supported actions [1]. 
 Let's add them! 
@@ -253,8 +262,8 @@ The fundamental idea of hypermedia is to enrich the representation of a resource
 common form hypermedia is a "link". 
 1. Href attribute specifies the URL of the resource the link goes to.
 2. Rel indicates the relationship of the target resource to the current one. There are some predefined in the wild [2],
-but You are not limited to them. You can come up with Your own. Just be sure that they are meaningful and consistent.
-Seeing this in API may seem something new... but You know Links, don't You?
+but you are not limited to them. You can come up with your own. Just be sure that they are meaningful and consistent.
+Seeing this in API may seem something new... but you know Links, don't you?
 ```html
 <head>  
    <link rel="stylesheet" href="mystyle.css">
@@ -271,7 +280,7 @@ So there is only one option. So far so good. Now we can discover the endpoint, l
 > only admin can delete student
 That was an intermediate step. Now let's add the hypermedia elements to list of houses.
 
-Let's add hypermedia to the `/accommodation/houses` endpoint. What do You think the response should include? Everything
+Let's add hypermedia to the `/accommodation/houses` endpoint. What do you think the response should include? Everything
 what's possible. So list of houses and related links; 
 ```json
 [
@@ -328,9 +337,9 @@ let readHouses: HttpHandler =
 
         json data next ctx
 ```
-This requires some extra work, but it gives You a lot of freedom. You can change endpoints, without breaking 
+This requires some extra work, but it gives you a lot of freedom. You can change endpoints, without breaking 
 consumer as long as they use links instead hardcoded URLs. Is it Discoverable? I hope so. Let's hit the href 
-`"/accommodation/houses/Slytherin/students"` now. What would You expect? Now here is the power of HATEOAS. You can expect
+`"/accommodation/houses/Slytherin/students"` now. What would you expect? Now here is the power of HATEOAS. You can expect
 a student without hypermedia or with it - depending on who ask. Admin? Yes, there is a "edit" link. Not and admin? So no
 link for that.
 Not an admin:
@@ -363,7 +372,7 @@ Now imagine that admin requested the resource:
       },
       ...
 ```
-Can You feel the power now? Not yet? Why? FE can now rely only on the presence/absence of links. Your api
+Can you feel the power now? Not yet? Why? FE can now rely only on the presence/absence of links. Your api
 can now drive the workflows, not duplicated logic on FE side in the form of providers, if-statements or whatever. FE now
 can be free of roles, permissions, business logic rules duplication.
 
@@ -407,7 +416,7 @@ type StudentDto =
                 [ { Rel = "edit"
                     Href = $"/accommodation/houses/{houseName}/students/{student.Id}" } ] }
 ```
-### 3.3 Testing HATEOAS
+### Testing HATEOAS
 Here is a test which can test HATEOAS:
 ```fsharp
 [<Fact>]
@@ -435,15 +444,15 @@ let ``HATEOAS: Admin Can list students, delete one of them and get refreshed lis
     }
 ```
 I am not using real JWT auth nor a database underneath, but even with real things the test would look like the same. From
-this test You can see how You can process links to derive current state, without coding any logic on the API consumer side.
+this test you can see how you can process links to derive current state, without coding any logic on the API consumer side.
 
-## 4. Homework
+## Homework
 > Onboard student (only admin can onboard student)
 
 What about cloning this repo and trying to implement this? I keep my fingers crossed.
-## 5. Summary
-I hope that by going through an imaginary example You are able to take some conclusions by Your own. Is Your client app 
-relying on logic duplication? Do You want to introduce some additional complexity to remove it? Long story short:
+## Summary
+I hope that by going through an imaginary example you are able to take some conclusions by your own. Is your client app 
+relying on logic duplication? Do you want to introduce some additional complexity to remove it? Long story short:
 ### API with HATEOAS:
 Pros:
 - Discoverability: HATEOAS enables better discoverability of resources and actions by providing links within API responses.
@@ -463,11 +472,11 @@ Cons:
 
 These are the key differences I can see.
 
-### 5.1 Where to go from here? 
-If what I presented got Your attention then You should definitely check 
+### Where to go from here? 
+If what I presented got your attention then you should definitely check 
 "Crafting domain driven web APIs" By Julien Topçu [3] excellent talk. He uses Kotlin and spring on the slides, 
-but this shouldn't be a problem. Also spring documentation [4] is an excellent resource where You can find a lot of 
-good stuff about HATEOAS even if You are not using spring. 
+but this shouldn't be a problem. Also spring documentation [4] is an excellent resource where you can find a lot of 
+good stuff about HATEOAS even if you are not using spring. 
 
 # References
 - [1] RESTful Web Services Cookbook, Subbu Allamaraju, O'Reilly 2010. Chapter 14, Enabling Discovery.

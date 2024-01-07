@@ -1,17 +1,16 @@
 ---
-templateKey: blog-post
-title: >-
-  Invariants as discriminated unions, validation and always valid objects.
+title: Invariants as discriminated unions, validation and always valid objects.
 date: 2021-02-26T18:35:00.000Z
 description: >-
   Everyone (including me) when applying DDD at some points fights with validation and invariants. Probably You tried different approaches already - validating within the domain, duplicating the validation logic for both: application validation and business rules enforcement, or You tried something else. In this post, we will dig out the old (but still living) "always valid" camp, and by using discriminated unions we will model both - always valid entities and aggregate invariants as types. Examples in F#.
-featuredpost: true
-featuredimage: /img/du_invariants/agg_rules2.png
+draft: false
+image: /images/du_invariants/agg_rules2.png
 tags:
   - fsharp
   - DDD
 ---
-## 1. Introduction
+
+## Introduction
 *Full source code on my [GitHub](https://github.com/marcingolenia/foosball-fifa-official)*
 
 Before we start let's bring the invariants definition from the blue book [7]
@@ -22,7 +21,7 @@ I won't change the world with this post, what we gonna do is also described in D
 
 Plus it extra easy to create new types in F# :)
 
-## 1.1 A discussion that you may have or have already had.
+### A discussion that you may have or have already had.
 *Hi! I am still struggling conceptually with validation and DDD. What's your opinion on throwing exceptions versus returning result codes versus some kind of your functional inventions?*
 
 I like the "your functional inventions" term. Sure, let's talk. Can you give an example so we can have solid ground for the discussion?
@@ -73,10 +72,10 @@ It allows exactly that and better than ever before thanks to applicative computa
 
 *I will check that. Can you show me the things you described in F#?*
 
-## 2. Examples of Domain with always valid types.
+## Examples of Domain with always valid types.
 I will stick with Foosball game domain - opening a game, scoring, ending the game. There is full source code on my GitHub [9]. I will also show you briefly one more domain, to ensure you that modeling with "always valid" is possible in most cases (if not in all cases). 
 
-#### 2.1 A Foosbal game
+### A Foosbal game
 Let's start with simple value objects. NotEmptyString may seem extremely weird for F# newcommers but it's quite popular in F# modeling. 
 ```fsharp
 type NotEmptyString = internal NotEmptyString of string
@@ -168,7 +167,7 @@ The most important fact here is that our domain actions act with only valid type
 
 I think you get the idea. Let's look into different examples. If this is obvious for you, feel free to go to section 3.
 
-#### 2.2 Issued invoice, paid invoice
+### Issued invoice, paid invoice
 Let me omit the basic types like NotEmptyString or VatId for the sake of verbosity, let me just show you PolishZipCode Value Object:
 ```fsharp
 
@@ -236,9 +235,9 @@ module Invoicing =
 ```
 Again - domain action accepts always valid invoices, no validation here. It will be done while constructing Value Objects. 
 
-###### 2.3 You name the next example and try to implement it... 😉
+### You name the next example and try to implement it... 😉
 
-## 3. Validation
+## Validation
 Let's forget about IO operations and consider each workflow (aka use case) as a 2-phase operation. 
 * 1st phase is making of necessary steps to be in the "always valid" entities and value objects world.
 * 2nd phase is actual domain action, in which invariants will be maintained.
@@ -306,7 +305,7 @@ module ScoreFlow =
 ```
 Note that our Aggregate (Game) can be in two states: Finished and Open. The domain doesn't even allow us to pass the game to the recordSoce domain action, so we pattern match over the game - we do validation which plays nicely with the validation that we already did in phase 1. It can happen that our phase 1 validation will return errors and the game will be finished. In that case, we won't return the error "Cannot make a score in a finished game". I don't find this to be a problem even from the UI perspective. Imagine that at first, you get two errors; ["Non-empty string is required.", "Invalid footballers color; acceptable values are: yellow, black"]. Once you correct the input you get another one; ["Cannot make a score in a finished game."]. I even think this is better; first, we validate the "input" then the action is made.
 
-#### 3.1 A test
+### The test
 Now we can get nice HttpResponse with 400 StatusCode and proper messages from our validation:
 ```fsharp
 [<Theory>]
@@ -335,7 +334,7 @@ let ``GIVEN two teams names AND at least one is empty or null WHEN createGameHan
     httpResponse.Response |> toString |> should haveSubstring "[\"team1 id cannot be empty.\",\"team2 id cannot be empty.\"]"
 ```
 You can find more tests in the GitHub repository [9].
-## 4. Summary
+## Summary
 Let me start the summary with a quote from Greg Young's post [1]:
 > Without using invariants the first test I should be writing is `should_throw_not_a_cyclops_exception_when_cyclops_has_two_eyes()` … As soon as I find myself writing this test I should be seeing the language and realizing that I am being silly. - *Greg Young*.
 

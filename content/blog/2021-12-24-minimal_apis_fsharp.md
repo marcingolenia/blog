@@ -10,7 +10,7 @@ tags:
   - fsharp
 ---
 
-## 1. Introduction
+## Introduction
 
 > This post is part of the F# Advent Calendar 2021. Special thanks to Sergey Tihon for organizing this! [Check out all the other great posts there!](https://sergeytihon.com/2021/10/18/f-advent-calendar-2021/).
 
@@ -18,7 +18,7 @@ If You are "show me the code" guy, You can just go and see the repo here: https:
 
 So! I saw how easy it should be to create API using the new "Minimal API" model brought to live in .NET 6. Let's go and check. No powerful IDE is required, we won't use any templates. Just bash and VSCode, but a notepad or nano will do.
 
-## 2. Let's build the simplest API
+## Let's build the simplest API
 
 Let's create the folder structure and 2 files - fsproj and Program.fs that will run our API:
 
@@ -125,7 +125,7 @@ app.Run()
 ```
 Better? I like it more. It should still work. 
 
-## 3. But how to test minimal APIs?
+## But how to test minimal APIs?
 
 There is one trick You have to do, let me show You. First lets create tests fsproj 
 
@@ -253,7 +253,7 @@ let ``/ should return "Hello world"`` () =
 ```
 You can run the test using `dotnet test` command, or `dotnet watch test` for continous execution. The test should pass.
 
-## 4. Where to go from here?
+## Where to go from here?
 We have built "Hello world" here, but it should work with complex API as well. I already introduced such tests and minimal API in my former company. It gets the job done. You my find these extension methods handy:
 
 ```fsharp
@@ -302,7 +302,7 @@ You should also consider more F# friendly assertion library. I Love FsUnit, Expe
 1. For dependencies that I own (ie DB, Rabbit broker etc) I run the dependencies using docker.
 2. For dependencies that I don't own (ie other team service, salesforce, etc) I build simple mocks. Depending on the environment (dev or prod) I compose real stuff or mocked one. This has a nice benefit; I am able to use 100% of my service locally. 
 
-## 5. Conclusions
+## Conclusions
 We've built a simple API using simple tools - 0 generated projects using IDEs, 0 templates, 100% code which we control and understand. I hope You've also learned some bash tricks. Now! Let's compare this (I've removed the empty Program class in sake of fair comparison):
 
 ```fsharp

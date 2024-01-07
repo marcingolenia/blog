@@ -1,16 +1,15 @@
 ---
-templateKey: blog-post
-title: >-
-  Let's play with playwright using F# scripts.
+title: Let's play with playwright using F# scripts.
 date: 2021-07-16T17:35:00.000Z
 description: >-
   In June Microsoft announced that .NET SDK is stable. For a long time, Selenium was (as far as I know) the only feature-rich web testing framework in .NET (except paid ones like Ranorex or Telerik Test Studio). I never liked the waits I had to do, which often caused the tests to be fragile. Playwright's puppeteer-like SDKs promise automatic wait and support for Python/.Net/Node.js/Java. Let's try this stuff in F#!
-featuredpost: true
-featuredimage: /img/playwright/playwright.webp
+draft: false
+image: /images/playwright/playwright.webp
 tags:
   - fsharp
 ---
-## 1. Introduction
+
+## Introduction
 Let's make few important points about [Playwright](https://playwright.dev/) before we start; 
 1. Supports Chrome/Webkit/Firefox/Edge (with chromium of course 😁).
 2. Has sdks for .Net/Node.js/Python/Java plus Go can be found on the internet, but is not official (at least yet).
@@ -19,7 +18,7 @@ Let's make few important points about [Playwright](https://playwright.dev/) befo
 
 The .Net SDK is of course C#-first so just follow official instructions to get started in C# (easy-peasy). Let's try to use it from F#, and then let's see what we can do about the "C#-first" thing. I already dream about automating stuff with F# and playwright 🙃.
 
-## 2. Hello, world from Playwright!
+## Hello, world from Playwright!
 Let's create a script file for instance `playwright.fsx`. So I guess we need to reference the nuget package first ;) Let's then stick to the docs (C# docs) and open a page in headless firefox, then we will go to duckduck.go and take a screenshot of the site. 
 ```fsharp
 #r "nuget: Microsoft.Playwright"
@@ -67,7 +66,7 @@ We don't need playwright .net tool for that, it is enough to go to the nuget pac
 ``` 
 and install dependencies by executing the script. `/playwright.sh install`. This is one-time operation, You won't to have bother with this anymore. 
 
-### 2.1 Problem with version older than 1.13 
+### Problem with version < 1.13 
 *At the time of writing this post (16-07-2021), 1.13 version is still in preview, in couple of weeks You won't need this step. For now, keep reding;*
 
 Nothing has changed after installation of dependencies? Well - I was a little bit confused, that is why I decided to ask for help on GitHub here;
@@ -81,13 +80,13 @@ Let's execute the script so that we will find a new version downloaded in nuget 
 ~/.nuget/packages/microsoft.playwright/1.13.0-next-1/.playwright/node/linux $ ./playwright.sh install
 ```
 
-### 2.2 Let's taste the soup
+### Let's taste the soup
 This should be enough, works for me:
-![](/img/playwright/a_screenshot.png)
+![](/images/playwright/a_screenshot.png)
 
 Can You feel the power already? Your head is full of ideas with what can be automated that way? Do You already want to write user-journey tests using this? I do 😀 Let's try to make the code a little bit more F# friendly first.
 
-## 3. Let's try to make the code more F# friendly.
+## Let's try to make the code more F# friendly.
 At first, I came into an idea to create a custom computation expression for playwright with custom syntax that will allow me to do the stuff more o less like this:
 ```fsharp
 playwright {
@@ -186,7 +185,7 @@ Isn't that cool?!?!?!?!?!!?! Well... yes and no 😉. Before I write about the d
 2a. Computation Expression is (at least in my opinion) somehow advanced mechanism. To grasp the how-to You might want to check the whole [blog-series by Scott Wlaschin](https://fsharpforfunandprofit.com/series/computation-expressions/). 
 2b. When You are done with Scott, actually [farmer docs in Contributing section has a nice example on how to write computation expression with custom keywords](https://compositionalit.github.io/farmer/contributing/adding-resources/4-creating-builder-syntax/).
 
-### 3.1 Drawbacks
+### Drawbacks
 First, the thing about computation expressions is that they do not compose well, mixing them is painful. The best example is this; Try to work with Async and Result without `FsToolkit.ErrorHandling`. Actually nesting them also hurts my eyes - we are back to a lot of curly braces (Hello C#! 😁). However, I am not sure if this is a problem here - I don't see any reasons to mix the playwright computation expression with another one - but that is just a fresh opinion and I might be just wrong. 
 
 The true problem is that We have hidden the native playwright api. If I would publish this code as nuget package I am sure that I will receive tons of issues "This is missing", "That is missing", "I can't do that", "Omg are You dumb? why not chrome?" and so on and so on. Can we fix that? Maybe - I tried to pass the page as a parameter to the computation expression like so; 
@@ -229,7 +228,7 @@ playwright {
 ```
 And I gave up. I am sure that an F# Zealot can handle this but... is it worth it? I just thought to myself, why the hell I decided to do a custom computation expression in the first place? 
 
-### 3.2 A better solution?
+### A better solution?
 I have a strong opinion that better = simpler. What do You think about this code? 
 ```fsharp
 #r "nuget: Microsoft.Playwright, 1.13-next-1"
@@ -265,7 +264,7 @@ task {
 ```
 Naaah... toooo simple 🙃 isn't it? 30 lines of code without hard stuff like Custom Computation Expression. Old good extensions methods + full access to native Playwright SDK. I will go with that.
 
-## 4. Conclusions
+## Conclusions
 It was a fun ride with custom computation expressions and hopefully I've inspired You to meet them in person. I believe I have to check Scott Wlaschin posts about them again myself ;) It is easy to forget - CEs are rather hard and not something You use at daily coding (Thank God! Can You imagine learning custom computation expressions built by bunch of different people? And maybe custom keywords?). I am not saying custom expressions are bad, we can do amazing stuff thanks to them like this [dapper wrapper](https://github.com/Dzoukr/Dapper.FSharp) or [Farmer](https://compositionalit.github.io/farmer/). Just make sure that You won't bring more problems to the table than improvements - like I did with playwright CE.
 
 The most important conclusion that I want You to get from this post is that: **👉 AIM FOR SIMPLICITY 👈**. Still, I would use my custom computation expression for simple things and scripts where I need only 10% of playwright rich possibilities (because I already wrote it 🤓). For more complex tasks I would stick to native API with possible extension methods that will make my F# live easier. 

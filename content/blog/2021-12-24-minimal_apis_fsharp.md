@@ -1,12 +1,9 @@
 ---
-templateKey: blog-post
 title: >-
   .NET 6 Minimal apis for F# devs, what we get? (including testing)
 date: 2021-12-30T17:35:00.000Z
-description: >-
-  So with .NET 6 we have received loudly announced minimal apis. Well... I would name them normal APIs (I am looking 👀 on express.js ...) but let's put the sarcasm aside and lets see how it could improve API development for F# developers.
-featuredpost: true
-featuredimage: /img/api.webp
+draft: false
+image: /images/api.webp
 tags:
   - fsharp
 ---

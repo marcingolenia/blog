@@ -25,3 +25,6 @@ body {
     display: flex;
     justify-content: space-between;
 }
+.card-img-top {
+    object-fit: cover;
+}

@@ -4,9 +4,12 @@ title: >-
 date: 2021-12-30T17:35:00.000Z
 draft: false
 image: /images/api.webp
+description: >-
+  So with .NET 6 we have received loudly announced minimal apis. Well... I would name them normal APIs (I am looking 👀 on express.js ...) but let's put the sarcasm aside and lets see how it could improve API development for F# developers.
 tags:
   - fsharp
 ---
+
 ## 1. Introduction
 
 > This post is part of the F# Advent Calendar 2021. Special thanks to Sergey Tihon for organizing this! [Check out all the other great posts there!](https://sergeytihon.com/2021/10/18/f-advent-calendar-2021/).

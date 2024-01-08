@@ -1,8 +1,5 @@
 ---
-templateKey: blog-post
-title: >-
-  Make F# play nice with C# - how to compose dependencies while hosting with C#
-  project
+title: Make F# play nice with C# - how to compose dependencies while hosting with C# project
 date: 2020-06-14T21:44:10.000Z
 description: >-
   F# is a nice functional alternative in .NET. I have convinced my teammates to
@@ -12,15 +9,15 @@ description: >-
   area to extend/introduce changes so why not take F# to the next level? If you
   are looking for some hints how to deal with F# and C# in one solution this is
   a must-read.
-featuredpost: false
-featuredimage: /img/cf.png
+draft: false
+image: /images/cf.png
 tags:
   - fsharp
   - csharp
 ---
-## 1. Introduction
+## Introduction
 Code samples with EventDispatcher and CompositionRoot will use Autofac but the presented techniques should be easily applicable to Microsoft IoC Container and MediatR. Samples holds some mysterius ``_fSqlConnectionFactory`` but let me write about easy Dapper Wrapper in F# and Option/Nullable interop in next post.
-#### 1.1 Motivation
+### Motivation
 If F# is .Net and if C# is .Net then what possibly could go wrong? People are saying that having C# and F# is easy... but it cuts both ways. If you don't mind having:
 * Classes in F#
 * Interface implementations in F#
@@ -38,14 +35,14 @@ then yes, this is easy. But I didn't want to start doing this...this... heresy? 
 ```
 the decision has been made - put additional effort to allow F# code to be more functional-first.
 
-#### 1.2 Background
+### Background
 To give you some background the solution hosts an API with 4 bounded contexts. There is an event which is being emitted whenever billing items are archived (so invoice was issued). For event handling, we use IoC Container. It simply looks for classes implementing `EventHandler<T>` interface and executes their `Handle(TEvent)` method. Composition root and bounded context are hosted by .Net Core API. More or less like this:
 
-![](/img/sol.jpg)
+![](/images/sol.jpg)
 
 I hope you get the idea. Don't bother with domain meaning here - I will focus on technical details related to F# and C# integration.
 
-## 2. Dealing with dependencies in F# (skip it if you know the partial application, IO Sandwich)
+## Dealing with dependencies in F# (skip it if you know the partial application, IO Sandwich)
 So let me write a few words about dealing with dependencies in F#. Partial application is a simple yet effective technique to compose dependencies in a functional style. It's nothing more than passing functions as parameters to other functions (so called higher order functions) to return new function. It's easy with currying. Imagine that you want to 
 1. read specific product from the database
 2. apply coupon code to product
@@ -94,7 +91,7 @@ let webApp =
 ```
 IO sandwich automatically leads to ports and adapters. Scott Wlashin talks [4] about this style at NDC Conference but in terms of onion and clean architecture with IO at the edges, where workflows are composed outside the domain.
 
-## 3. Let's compose an use case in C# Composition Root
+## Let's compose an use case in C# Composition Root
 Let the fun begin. Let me bring my real-project flow;
 ```fsharp
 module CloseReportingPeriodFlow = // this closes a report and opens new one.
@@ -120,10 +117,10 @@ module CloseReportingPeriodFlow = // this closes a report and opens new one.
 ```
 How can we approach this? We can write a class that wraps the closeReportingPeriod function - as you should know F# modules are static classes. But do we have to? Creating dumb wrappers seems like an architectural disaster. F# can call C# Func<> easily so why not to call F# function from C#? Let's register the Func<> and inject it to the C# controller in which the Func will be executed. Sounds like a good compromise doesn't it? C# Types in C#, F# in F#. Let's give it a try! 
 
-##### Step 1 - compose IO
+### Step 1 - compose IO
 In our C# CompositionRoot let's create CloseReportingPeriodFlow IO type by writing ``var io = new CloseReportingPeriodFlow.IO()``
 
-![](/img/fc1.png)
+![](/images/fc1.png)
 
 Well... FSharpFunc? FSharpAsync? Unit? In C#? No worries! Let's write
 ```fsharp
@@ -192,7 +189,7 @@ private Func<Task> ComposeCloseReportingPeriod()
     return // TODO compose workflow
 }
 ```
-##### Step 2 - compose workflow
+### Step 2 - compose workflow
 Let's try to do partial application now by returning a Func which has the io dependency applied (complete workflow).
 ```csharp
 return () => CloseReportingPeriodFlow.closeReportingPeriod(io);
@@ -266,7 +263,7 @@ And the controller looks like this:
     }
 ```
 Cool isn't it? We didn't cover the situation in which the flow requires some paramters. 
-##### Step 3 - compose workflow that actually requires some parameters.
+### Step 3 - compose workflow that actually requires some parameters.
 In that case you should register a Func that takes that parameters. Here's an example:
 ```csharp
 private Func<InvoiceId /*The parameter*/, Task<FileType.File>> ComposeSingleReportFileGenerator()
@@ -288,7 +285,7 @@ private Func<InvoiceId /*The parameter*/, Task<FileType.File>> ComposeSingleRepo
 Then register a func ``Func<InvoiceId, Task<FileType.File>>`` in Autofac or whatever you use. I think you get the idea.
 ```
 
-## 4. Let's handle events with F# handlers from C# based event dispatcher
+## Let's handle events with F# handlers from C# based event dispatcher
 First let me show you the EventDispatcher:
 ```csharp
     public class AutofacEventDispatcher : EventDispatcher
@@ -385,27 +382,27 @@ builder.RegisterInstance(ComposeBillingItemsArchivedHandler());
 ```
 That's it! EventDispatcher will hande activation and calling the Handle function for us! To be hones I am thinking about moving C# EventHandlers to Funcs as well and drop the EventHandler interface.
 
-## 5. Summary
+## Summary
 I am really happy with what was achieved here. Composition root is still the single place to compose dependencies it only has to do some adjustment on the types to make it "click". Such way of F# and C# coexistence is really attractive (at least to me) and builds an approachable point in "Let's introduce F# in our project" discussion. You could always make a separate service to host F# but I found it to be a source of "fear" for other people as they will have to learn Giraffe or Saturn as well. By doing intermediate steps and creating a win & win argument creates a bright future for more F# in your project. To sum up what I've discussed let me classify 3 ways of C# and F# integration.;
 1. By Heresy 😈 let's officially name it "by mixing OO with FP"
 2. By Composition root types adjustments
 3. By hosting as the other microservice
 
 Thanks for reading! Here's a [public gist](https://gist.github.com/marcingolenia/c9e3a123d799e73e87911acc1c030da4) if you want to take a look on complete FSharpCSharpInteroperability. Stay tuned about integration of Dapper with F# and handling Nullable C# object!
+
+## Special Thank You
+to [Marcin Sikroski](http://marcinlovescode.com/) who supported me on the task. Without him the integration wouldn't look so nice :)
 - - -
 
-## 6. Special Thank You
-to [Marcin Sikroski](http://marcinlovescode.com/) who supported me on the task. Without him the integration wouldn't look so nice :)
-
-<small>
-<b>Footnotes:</b><br/>
-[2] The discussion at the bottom of the blog post is very very interesting! Check it out as well. Mark and readers discuss putting to much responsibility to controller.<br/>
+**Footnotes:**\
+[2] The discussion at the bottom of the blog post is very very interesting! Check it out as well. Mark and readers discuss putting to much responsibility to controller.\
 [3] I believe that Microsoft stole a useful name. Not so long time ago I was using name Controller in Application layer as well but everyone was surprised - calling Controller from Controller? I convinced my colleagues by asking what is wrong with that? We have something that controls the flow of the HTTP requests and something that controls the flow of our application. We have found consensus in renaming "our" controller to something else. I find that "UseCase" or "Flow" is also fine - I tend to use the second now because it is simply shorter.
-<br/><b>References:</b><br/>
-Websites:<br/>
+**References:**
 
-[1] [Asynchrouns injection by Mark Seeman](https://blog.ploeh.dk/2019/02/11/asynchronous-injection/) <br/>
-[2] [Scott Wlashin about Dependency Injection in F#](https://fsharpforfunandprofit.com/posts/dependency-injection-1/) <br/>
-[3] [Stackoverflow question about DI in F# with Tomas Petricek and Scott Wlashin answer](https://stackoverflow.com/questions/52156730/f-analog-of-dependency-injection-for-a-real-project) <br/>
-Videos:<br/>
+Websites:\
+[1] [Asynchrouns injection by Mark Seeman](https://blog.ploeh.dk/2019/02/11/asynchronous-injection/)
+[2] [Scott Wlashin about Dependency Injection in F#](https://fsharpforfunandprofit.com/posts/dependency-injection-1/)\
+[3] [Stackoverflow question about DI in F# with Tomas Petricek and Scott Wlashin answer](https://stackoverflow.com/questions/52156730/f-analog-of-dependency-injection-for-a-real-project)
+
+Videos:\
 [4] [Scott Wlashin - Reinventing the Transaction Script (I like to name it: making Transaction Script Sexy)](https://www.youtube.com/watch?v=USSkidmaS6w)

@@ -5,8 +5,8 @@ title: >-
 date: 2020-07-26T21:00:00.000Z
 description: >-
   How do you approach integration with 3rd party services? How do you learn new API which you have to use? Do you write a console app, run and stop it over and over again? If you write a service that will be used by others do you write documentation? Stop wasting time! Learning tests will help you speed up.
-featuredpost: false
-featuredimage: /img/learning_tests.png
+draft: false
+image: /images/learning_tests.png
 tags:
   - agile software development
   - craftsmanship
@@ -167,16 +167,14 @@ I have asked my teammates about learning tests. The question was more or less:
  The last one is rather stingy said but note that all of my teammates say that this is cool stuff !!! Give it a try, you won't regret it.
  
 - - -
-<small>
-<b>Footnotes:</b><br/>
-[1] This is my free translation basing on Polish version of the book.<br/>
-<b>References:</b><br/>
-Books:<br/>
+**Footnotes:**\
+[1] This is my free translation basing on Polish version of the book.
 
+**References:**\
+Books:\
 [2] *Clean Code: A Handbook of Agile Software Craftsmanship* by Robert C. Martin.<br/>
 [3] *Implementing Lean Software Development From Concept to Cash* by Mary & Tom Poppendeick.<br/>
 
-Websites: <br/>
-
+Websites:\
 [4] [Mike Cohn about spikes on Mountain Goat Software blog](https://www.mountaingoatsoftware.com/blog/spikes) <br/>
 

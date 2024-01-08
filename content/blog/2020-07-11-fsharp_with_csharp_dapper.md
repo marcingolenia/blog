@@ -1,20 +1,18 @@
 ---
-templateKey: blog-post
-title: >-
-  Make F# play nice with C# Part 2 - how to handle option and nullable mismatch and work with dapper
+title: Make F# play nice with C# Part 2 - how to handle option and nullable mismatch and work with dapper
 date: 2020-07-11T18:41:11.000Z
 description: >-
   This is the next part of the C# and F# integration journey. This time we will look into Dapper functional wrapper and option vs nullable type mismatch. Together with the previous post, we will close the loop of C# and F# coexistence. 
-featuredpost: false
-featuredimage: /img/cf.png
+draft: false
+image: /images/cf.png
 tags:
   - fsharp
   - csharp
 ---
-## 1. Introduction
+## Introduction
 If you are interested just in making dapper more usable in F# or conversion between F# option <-> C# Nullable then this is the article for you. However, if you are looking for how-to integrate C# with F# in general you should also read my previous article about [composing dependencies in C# and F# hybrid solution](../2020-06-14-fsharp_with_csharp).
 
-## 2. Nullable to option, option to nullable 
+## Nullable to option, option to nullable 
 If one will try to return option types from C# controller it will end up with JSON like this:
 ```json
 [
@@ -135,7 +133,7 @@ Now you can delete the DTO, and return the query result directly without botheri
                         options.SerializerSettings.Converters.Add(new OptionConverter.OptionConverter());
                     })
 ```
-## 3. Dapper in F# - small wrapper to make use of it easy
+## Dapper in F# - small wrapper to make use of it easy
 Using dapper in F# is easy but if you are about to use asynchronous IO then you will have to deal with C# Task by writing `Async.AwaitTask : Task<'a> → Async<'a>`. This function translates a Task value to an Async value. Dapper is itself written in C# so you know the reason.
 Example pure dapper example:
 ```fsharp
@@ -203,7 +201,7 @@ Func<FSharpAsync<SqlConnection>> fSqlConnectionFactory =
     () => DapperFSharp.createSqlConnection(_appSettings.ConnectionString);
 ```
 This is the "magical" `_fSqlConnectionFactory` that I left without going into details in the previous post. 
-#### 3.1 Dapper in F# - mapping from null to None.
+###  Mapping from null to None.
 The next step to have Dapper in our functional world is about mapping null to None when reading the data (we don't want nulls right?) and None to null when writing. The code explains itself:
 
 ```fsharp
@@ -290,12 +288,10 @@ WHERE CustomerId = @Id
 ```
 Poof... that's it!
 
-## 5. Summary
+## Summary
 Handling null and option type mismatch is quite easy and intuitive. Dapper required more effort but still, these are just two files - once you have them, they just work. With the previous article about composing dependencies, you have now full power to write C# hosting project with F# projects starting from the application layer, through the domain to different adapters including querying data with dapper. May the F#orce be with you!
 - - -
-<small>
-<b>References:</b><br/>
-Websites:<br/>
-
+**References:**\
+Websites:\
 [1] [Lev Gorodinski blog and his code about different type converters](http://gorodinski.com/blog/2013/01/05/json-dot-net-type-converters-for-f-option-list-tuple/) <br/>
 [2] [Roman Provazník gist with Dapper wrapper](https://gist.github.com/Dzoukr/d88f8ee3af400b7674d0393adfb85f1f) <br/>

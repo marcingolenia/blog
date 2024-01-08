@@ -333,5 +333,5 @@ This is normal since many many years for node.js developers. I am happy that .NE
 
 In addition I hope that the trick I mentioned (including sample repo) on how to integrate F# Giraffe stuff into existing C# WebApi will help You out there in bringing F# to Your company.
 - - -
-<b>References:</b><br/>
-[1] MSDN Integration tests in ASP.NET Core - https://docs.microsoft.com/pl-pl/aspnet/core/test/integration-tests?view=aspnetcore-6.0
+**References:**\
+[1] [MSDN Integration tests in ASP.NET Core](https://docs.microsoft.com/pl-pl/aspnet/core/test/integration-tests?view=aspnetcore-6.0)

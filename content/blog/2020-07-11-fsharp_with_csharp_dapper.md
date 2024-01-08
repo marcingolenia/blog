@@ -293,5 +293,5 @@ Handling null and option type mismatch is quite easy and intuitive. Dapper requi
 - - -
 **References:**\
 Websites:\
-[1] [Lev Gorodinski blog and his code about different type converters](http://gorodinski.com/blog/2013/01/05/json-dot-net-type-converters-for-f-option-list-tuple/) <br/>
-[2] [Roman Provazník gist with Dapper wrapper](https://gist.github.com/Dzoukr/d88f8ee3af400b7674d0393adfb85f1f) <br/>
+[1] [Lev Gorodinski blog and his code about different type converters](http://gorodinski.com/blog/2013/01/05/json-dot-net-type-converters-for-f-option-list-tuple/)\
+[2] [Roman Provazník gist with Dapper wrapper](https://gist.github.com/Dzoukr/d88f8ee3af400b7674d0393adfb85f1f)

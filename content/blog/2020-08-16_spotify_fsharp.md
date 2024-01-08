@@ -390,9 +390,9 @@ I use my new commands daily. It's easier to open terminal (I use Guake Terminal 
 
 **References:**\
 Websites:\
-[1] [Freedesktop site with D-Bus description](https://www.freedesktop.org/wiki/Software/dbus/) <br/>
-[2] [Not-complete list of desktop apps using D-Bus](https://www.freedesktop.org/wiki/Software/DbusProjects/) <br/>
-[3] [Tmds.Dbus package project github](https://github.com/tmds/Tmds.DBus) <br/>
-[4] [My article about learning tests](https://mcode.it/blog/2020-07-26_learning_tests/)<br/>
-[5] [Argu page on fsprojects](https://fsprojects.github.io/Argu/)<br/>
+[1] [Freedesktop site with D-Bus description](https://www.freedesktop.org/wiki/Software/dbus/)\
+[2] [Not-complete list of desktop apps using D-Bus](https://www.freedesktop.org/wiki/Software/DbusProjects/)\
+[3] [Tmds.Dbus package project github](https://github.com/tmds/Tmds.DBus)\
+[4] [My article about learning tests](https://mcode.it/blog/2020-07-26_learning_tests/)\
+[5] [Argu page on fsprojects](https://fsprojects.github.io/Argu/)\
 [6] [System.CommandLine netcore package](https://github.com/dotnet/command-line-api) 

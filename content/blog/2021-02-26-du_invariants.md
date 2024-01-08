@@ -353,19 +353,19 @@ In OO languages you are constraining yourself with a simpler type system, thereb
 and one risky opinion; Validation is not a domain concept in terms of DDD, it is your application (layer) job to make sure that commands can be applied to the domain properly. The application can use domain types to execute validation (or specifications like in blue book [7]) but the domain remains unaware of this act.
 
 - - -
-<b>References:</b><br/>
+**References:**
 
-Websites: <br/>
-[1] [Always Valid - Greg Young](http://codebetter.com/gregyoung/2009/05/22/always-valid/) <br/>
-[2] [Few snippets that prove F# COOLNESS - Marcin Golenia](../2020-04-20-fsharp_cool/) <br/>
-[3] [An F# demo of validation with partial data round trip - Mark Seemann](https://blog.ploeh.dk/2020/12/28/an-f-demo-of-validation-with-partial-data-round-trip/) <br/>
-[4] [FsToolkit library](https://github.com/demystifyfp/FsToolkit.ErrorHandling) <br/>
-[5] [Value Object - Martin Fowler](https://martinfowler.com/bliki/ValueObject.html) <br/>
+Websites:\
+[1] [Always Valid - Greg Young](http://codebetter.com/gregyoung/2009/05/22/always-valid/)\
+[2] [Few snippets that prove F# COOLNESS - Marcin Golenia](../2020-04-20-fsharp_cool/)\
+[3] [An F# demo of validation with partial data round trip - Mark Seemann](https://blog.ploeh.dk/2020/12/28/an-f-demo-of-validation-with-partial-data-round-trip/)\
+[4] [FsToolkit library](https://github.com/demystifyfp/FsToolkit.ErrorHandling)\
+[5] [Value Object - Martin Fowler](https://martinfowler.com/bliki/ValueObject.html)\
 [6] [Validation and DDD - Vladimir Khorikov](https://enterprisecraftsmanship.com/posts/validation-and-ddd/)
 
-Books: <br/>
-[7] [*Domain-Driven Design: Tackling Complexity in the Heart of Software* - Eric Evans](https://www.goodreads.com/book/show/179133.Domain_Driven_Design) <br/>
-[8] [*Domain Modeling Made Functional: Tackle Software Complexity with Domain-Driven Design and F#* - Scott Wlaschin](https://www.goodreads.com/book/show/34921689-domain-modeling-made-functional) <br/>
+Books:\
+[7] [*Domain-Driven Design: Tackling Complexity in the Heart of Software* - Eric Evans](https://www.goodreads.com/book/show/179133.Domain_Driven_Design)\
+[8] [*Domain Modeling Made Functional: Tackle Software Complexity with Domain-Driven Design and F#* - Scott Wlaschin](https://www.goodreads.com/book/show/34921689-domain-modeling-made-functional)
 
-Source Code: <br/>
-[9] [Source code](https://github.com/marcingolenia)<br/>
+Source Code:\
+[9] [Source code](https://github.com/marcingolenia)

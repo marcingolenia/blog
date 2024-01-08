@@ -515,21 +515,21 @@ What I am concerned about is that almost everything wants to integrate with DI C
 I like Rebus. Maybe MassTransit has more stars on GitHub (there is also Brighter now) but this lib is just great. It is easier to start with, plays nice with F#. The only drawback is that I do not understand why the hell we need an activator for a publish-only bus??? I suspect that not all types of transport support that kind of communication, thereby mookid8000 decided to keep it that way. All in all, you can pass just a new instance there and carry on. Remember - Rebus is cool and You should consider it.
 
 - - -
-<b>References:</b><br/>
+**References:**
 
-Websites: <br/>
-[1] [microservices.io: outbox pattern - Chris Richardson](https://microservices.io/patterns/data/transactional-outbox.html) <br/>
-[2] [microservices.io: polling publisher - Chris Richardson](https://microservices.io/patterns/data/polling-publisher.html) <br/>
-[3] [Outbox pattern in C# - Kamil Grzybek](http://www.kamilgrzybek.com/design/the-outbox-pattern/)<br/>
-[4] [Enterprise Integration Patterns: Idempotent Receiver - Gregor Hophe, Bobby Woolf](https://www.enterpriseintegrationpatterns.com/patterns/messaging/IdempotentReceiver.html)<br/>
-[5] [RabbitMq best practices](https://www.cloudamqp.com/blog/2017-12-29-part1-rabbitmq-best-practice.html)<br/>
-[6] [Rebus library](https://github.com/rebus-org/Rebus)<br/>
-[7] [IdGen library](https://github.com/RobThree/IdGen)<br/>
+Websites:\
+[1] [microservices.io: outbox pattern - Chris Richardson](https://microservices.io/patterns/data/transactional-outbox.html)\
+[2] [microservices.io: polling publisher - Chris Richardson](https://microservices.io/patterns/data/polling-publisher.html)\
+[3] [Outbox pattern in C# - Kamil Grzybek](http://www.kamilgrzybek.com/design/the-outbox-pattern/)\
+[4] [Enterprise Integration Patterns: Idempotent Receiver - Gregor Hophe, Bobby Woolf](https://www.enterpriseintegrationpatterns.com/patterns/messaging/IdempotentReceiver.html)\
+[5] [RabbitMq best practices](https://www.cloudamqp.com/blog/2017-12-29-part1-rabbitmq-best-practice.html)\
+[6] [Rebus library](https://github.com/rebus-org/Rebus)\
+[7] [IdGen library](https://github.com/RobThree/IdGen)
 
-Books and Documents: <br/>
-[8] [*Microservices Patterns* - Chris Richardson](https://www.goodreads.com/book/show/34372564-microservice-patterns) <br/>
-[9] [*Enterprise Integration Patterns* - Gregor Hohpe, Bobby Woolf](https://www.goodreads.com/book/show/85012.Enterprise_Integration_Patterns)<br/>
-[10] [*How To Handle Missing Information Without Using NULL* - Hugh Darwen](https://www.dcs.warwick.ac.uk/~hugh/TTM/Missing-info-without-nulls.pdf)<br/>
+Websites:\
+[8] [*Microservices Patterns* - Chris Richardson](https://www.goodreads.com/book/show/34372564-microservice-patterns)\
+[9] [*Enterprise Integration Patterns* - Gregor Hohpe, Bobby Woolf](https://www.goodreads.com/book/show/85012.Enterprise_Integration_Patterns)\
+[10] [*How To Handle Missing Information Without Using NULL* - Hugh Darwen](https://www.dcs.warwick.ac.uk/~hugh/TTM/Missing-info-without-nulls.pdf)
 
-Source Code: <br/>
-[11] [F# Outbox on GitHub](https://github.com/marcingolenia/fsharp-outbox)<br/>
+Source Code:\
+[11] [F# Outbox on GitHub](https://github.com/marcingolenia/fsharp-outbox)

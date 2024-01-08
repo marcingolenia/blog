@@ -48,8 +48,7 @@ You can of course apply this setting only to the selected repository. In this ca
 It is always worth to challenge your routine habits. The second conclusion is that it is worth to get know the tools you use 😅.
 
 - - -
-<b>References:</b><br/>
-Websites: <br/>
-
+**References:**\
+Websites:\
 [1] [Git configuration documentation](https://git-scm.com/docs/git-config) <br/>
 

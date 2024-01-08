@@ -551,11 +551,10 @@ I use this approach in my current project, the team is happy with both - testing
 ## EXTRA: Homework!
 Try to write an acceptance test for removing items from the stock in both approaches. I wrote the "production code" for you already. This will fully help you understand how to do it. This approach works extremely well with TDD as well - try to extend the functionality with one more use-case; adding items to the stock, but write the tests first.
 - - -
-<b>References:</b><br/>
-Websites: <br/>
-
-[1] [*Dependency Injection Principles, Practices, and Patterns* by Mark Seeman](https://www.goodreads.com/book/show/44416307-dependency-injection-principles-practices-and-patterns) <br/>
-[2] [*Functional approaches to dependency injection* by Scott Wlaschin](https://fsharpforfunandprofit.com/posts/dependency-injection-1/) <br/>
-[3] [Stack overflow question: F# analog of dependency injection for a real project](https://stackoverflow.com/questions/52156730/f-analog-of-dependency-injection-for-a-real-project) <br/>
-[4] [Impureim sandwich by Mark Seemann](https://blog.ploeh.dk/2020/03/02/impureim-sandwich/)<br/>
+**References:**\
+Websites:\
+[1] [*Dependency Injection Principles, Practices, and Patterns* by Mark Seeman](https://www.goodreads.com/book/show/44416307-dependency-injection-principles-practices-and-patterns)\
+[2] [*Functional approaches to dependency injection* by Scott Wlaschin](https://fsharpforfunandprofit.com/posts/dependency-injection-1/)\
+[3] [Stack overflow question: F# analog of dependency injection for a real project](https://stackoverflow.com/questions/52156730/f-analog-of-dependency-injection-for-a-real-project)\
+[4] [Impureim sandwich by Mark Seemann](https://blog.ploeh.dk/2020/03/02/impureim-sandwich/)\
 [5] [Functional Core Imperative Shell by Gary Bernhardt](https://www.destroyallsoftware.com/screencasts/catalog/functional-core-imperative-shell)

@@ -172,9 +172,9 @@ I have asked my teammates about learning tests. The question was more or less:
 
 **References:**\
 Books:\
-[2] *Clean Code: A Handbook of Agile Software Craftsmanship* by Robert C. Martin.<br/>
-[3] *Implementing Lean Software Development From Concept to Cash* by Mary & Tom Poppendeick.<br/>
+[2] *Clean Code: A Handbook of Agile Software Craftsmanship* by Robert C. Martin.\
+[3] *Implementing Lean Software Development From Concept to Cash* by Mary & Tom Poppendeick.
 
 Websites:\
-[4] [Mike Cohn about spikes on Mountain Goat Software blog](https://www.mountaingoatsoftware.com/blog/spikes) <br/>
+[4] [Mike Cohn about spikes on Mountain Goat Software blog](https://www.mountaingoatsoftware.com/blog/spikes)
 

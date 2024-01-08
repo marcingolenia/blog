@@ -478,8 +478,9 @@ If what I presented got your attention then you should definitely check
 but this shouldn't be a problem. Also spring documentation [4] is an excellent resource where you can find a lot of 
 good stuff about HATEOAS even if you are not using spring. 
 
-# References
-- [1] RESTful Web Services Cookbook, Subbu Allamaraju, O'Reilly 2010. Chapter 14, Enabling Discovery.
-- [2] https://www.iana.org/assignments/link-relations/link-relations.xhtml
-- [3] [Crafting domain driven web APIs - By Julien Topçu](https://www.youtube.com/watch?v=bHc8Gudrhdo)
-- [4] [Spring Hateoas documentation](https://docs.spring.io/spring-hateoas/docs/current/reference/html/)
+---
+**References:**\
+[1] RESTful Web Services Cookbook, Subbu Allamaraju, O'Reilly 2010. Chapter 14, Enabling Discovery.\
+[2] https://www.iana.org/assignments/link-relations/link-relations.xhtml\
+[3] [Crafting domain driven web APIs - By Julien Topçu](https://www.youtube.com/watch?v=bHc8Gudrhdo)\
+[4] [Spring Hateoas documentation](https://docs.spring.io/spring-hateoas/docs/current/reference/html/)

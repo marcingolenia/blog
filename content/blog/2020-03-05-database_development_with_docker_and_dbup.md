@@ -1,13 +1,12 @@
 ---
-templateKey: blog-post
 title: Simplifying database development with docker and DbUp
 date: 2020-03-05T15:04:10.000Z
 description: >-
   Let me show you how you can combine PostgreSQL, Docker and DbUp to create
   pleasant and quick database development environment without installing
   anything (besides docker of course).
-featuredpost: false
-featuredimage: /img/dbdocker.webp
+draft: false
+image: /images/dbdocker.webp
 tags:
   - docker
   - sqlserver
@@ -205,7 +204,7 @@ INSERT INTO Customers VALUES
 ```
 Set the script files as embedded ressources. You can do it in your IDE or in csproj. Example scripts looks like this:
 
-![](/img/2_embedded.png)
+![](/images/2_embedded.png)
 
 Having those things let's run the migrator again.
 ```bash

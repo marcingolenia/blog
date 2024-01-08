@@ -1,18 +1,17 @@
 ---
-templateKey: blog-post
 title: >-
   Simple netcore F# app to control Spotify from the terminal on Linux
 date: 2020-08-16T20:00:00.000Z
 description: >-
   I am addicted to Spotify, I have Linux, I L💖ve F# so I decided to give it a try to control Spotify on Linux using Terminal. Join the ride! We will add a nice feature that will allow us to download lyrics of the current song and we will meet D-bus and Argu - F# library which makes building CLI apps fun! I will also show you how to publish and use the app in Linux.
-featuredpost: false
-featuredimage: /img/slinux.png
+draft: false
+image: /images/slinux.png
 tags:
   - fsharp
 ---
-## 1. Introduction
+## Introduction
 Lately, I got inspired by the python program [spotify-cli-linux](https://github.com/pwittchen/spotify-cli-linux) written by my friend. I decided to write the port of this app in .net core in F#. If you can't way to see the source code [here it is](https://github.com/marcingolenia/spotify-cli-linux).
-## 1.1 D-bus
+## D-bus
 D-Bus is a message bus system, which allows inter-applications communication. Also, D-Bus helps coordinate process lifecycle; it makes it simple and reliable to code a "single instance" application or daemon, and to launch applications and daemons on demand when their services are needed. Linux desktop environments take advantage of the D-Bus facilities by instantiating not one bus but many:
 * A single system bus, available to all users and processes of the system, that provides access to system services (i.e. services provided by the operating system and also by any system daemons).
 * A session bus for each user login session, that provides desktop services to user applications in the same desktop session, and allows the integration of the desktop session as a whole. Spotify belongs here.
@@ -20,15 +19,15 @@ D-Bus is a message bus system, which allows inter-applications communication. Al
 The purpose of D-Bus should be clear - simplify:
 
 
-![](/img/dbus.png)
+![](/images/dbus.png)
 
 You can read more about D-Bus on freedesktop.org [1]. We will focus on Spotify but The list of Desktop apps using D-Bus is long and may give you some inspiration [2]. Before we start to code let me introduce you D-Feet which is a nice GUI app which allows you to control and explore D-Bus:
 
-![](img/dfeet.png)
+![](/images/dfeet.png)
 
 It may help you to get to know the D-Bus interface of the application you want to integrate with. You can even send some signals and test the application behavior without writing any code.
 
-## 2. Connecting to D-Bus with F# and interacting with Spotify.
+## Connecting to D-Bus with F# and interacting with Spotify.
 How to connect to D-Bus using .NET? I googled a little bit and found [Tmds.Dbus package by Tom Deseyn [3]](https://github.com/tmds/Tmds.DBus) which seems to be the easiest way (and the moment probably the only way if you don't want to struggle with sockets, buffers, streams, etc). The samples are in C# but I did not see any obstacles to write the code in F# and hide the package object-oriented nature behind more functional friendly mechanisms.
 
 According to documentation to model a D-Bus interface using Tmds.DBus we create a .NET interface with the `DBusInterface` attribute and inherit `IDBusObject`. We can do this in F# easily. Next, a D-Bus method is modeled by a method in the .NET interface. The method must to return Task for methods without a return value and Task<T> for methods with a return value. Following async naming conventions, we add Async to the method name. In case a method has multiple out-arguments, these must be combined in a struct/class as public fields or a C# 7 tuple. The input arguments of the D-Bus method are the method parameters.
@@ -120,7 +119,7 @@ let ``GIVEN retrieveCurrentSong WHEN Song is selected in Spotify THEN the title,
     sprintf "%A" song |> Console.WriteLine
 ```
 
-#### 2.1 Manipulating the player
+### Manipulating the player
 The hard work is done (actually it wasn't that was it?) Let's implement play/pause/next/previous, etc signals:
 
 ```fsharp
@@ -177,7 +176,7 @@ let ``GIVEN send Pause WHEN Song is Playing THEN the resulting status is Paused`
 ```
 This works like a charm. I have the tests skipped in Github's actions for the obvious reason - Spotify is not installed on GitHub agents.
 
-## 3. Downloading lyrics
+## Downloading lyrics
 There was a time that Spotify offered this feature but it was removed for unknown reasons. I miss it so let's add this feature to our CLI app. I've created a separate project for this so I can change the API easily without touching D-Bus. I've found a simple and free API named [Canarado](https://api.canarado.xyz/) that allows us to search for lyrics by song name. Let's do this and filter out the matching artist. If our filtering will cause an empty result let's return the original set of lyrics. I've started with learning tests [4] that can be found in the repository if you are interested. The code is simple;
 ```fsharp
 namespace Lyrics.CanaradoApi
@@ -249,10 +248,10 @@ let ``GIVEN title and artist WHEN fetchLyrics matches lyrics THEN list of matchi
 ```
 That was simple, wasn't it?
 
-#### 3.1 Canarado stopped to return lyrics. 
+### Canarado stopped to return lyrics. 
 At the time of writing the blog post something happened to Canarado and it stopped to return the lyrics (its empty string now). I've created the GitHub issue here: https://github.com/canarado/node-lyrics/issues/1. If the situation won't change in a week or two I will write an update to the blog post with chapter 3.2 with an alternative.
 
-## 4. Creating the CLI with Argu
+## Creating the CLI with Argu
 Let's do a quick recap:
 1. We have an adapter to communicate with Spotify.
 2. We have an adapter to retrieve lyrics.
@@ -368,7 +367,7 @@ let errorHandler2 = ProcessExiter (fun(code) -> match code with | ErrorCode.Help
 
 Done!
 
-## 5. Publishing the app, adding aliases.
+## Publishing the app, adding aliases.
 
 To publish the app let's navigate in the terminal to our project with the CLI project and use command `dotnet publish -c Release -r linux-x64`. We should get `Spotify.Console.dll`. Now we can navigate to something like `~/src/Spotify.Console/bin/Release/netcoreapp3.1/linux-x64` and run our app `dotnet Spotify.Console.dll --help`. Or we can write a full "dll" path and stay in the terminal where we are. This isn't comfortable at all, is it? Let's create an alias by typing in the terminal:
 ```bash
@@ -376,7 +375,7 @@ alias spot='dotnet ~/projects/spotify-linux-published/Spotify.Console.dll'
 ```
 Now we can use `spot --help`, `spot --next` and so on easily! Remember that the alias will vanish upon reboot. To make it live longer we have to put the alias here: `/home/[user]/.bash/.bash_aliases`. Simply add the same line at the end of the file (create the file if it doesn't exist). Save and close the file, a reboot is not required, just run this command `source ~/.bash_aliases` and you are good to go! Have fun.
 
-## 6. Conclusions
+## Conclusions
 We have covered a lot! 
 * D-Bus - what is it, how to establish the communication in dotnet.
 * Argu - CLI argument parsing made easy.
@@ -386,12 +385,11 @@ We have covered a lot!
 I use my new commands daily. It's easier to open terminal (I use Guake Terminal so ctrl +`) and type spot --next instead opening Spotify, look for the control and press it. Printing the lyrics is equally fun. Hear you next time!
 
 - - -
-<small>
-<b>Footnotes:</b><br/>
-[4] To be honest I really don't like the Async postfix in methods names - I understand that they are needed in libraries which have to support both synchronous and asynchronous model but besides I see them obsolete. And interfaces... well... the library is written in C#, samples are in C# so It is written for C# developers, let's just do what we have to do and let's be happy that F# supports interfaces.<br/>
-<b>References:</b><br/>
+**Footnotes:**\
+[4] To be honest I really don't like the Async postfix in methods names - I understand that they are needed in libraries which have to support both synchronous and asynchronous model but besides I see them obsolete. And interfaces... well... the library is written in C#, samples are in C# so It is written for C# developers, let's just do what we have to do and let's be happy that F# supports interfaces.
 
-Websites: <br/>
+**References:**\
+Websites:\
 [1] [Freedesktop site with D-Bus description](https://www.freedesktop.org/wiki/Software/dbus/) <br/>
 [2] [Not-complete list of desktop apps using D-Bus](https://www.freedesktop.org/wiki/Software/DbusProjects/) <br/>
 [3] [Tmds.Dbus package project github](https://github.com/tmds/Tmds.DBus) <br/>

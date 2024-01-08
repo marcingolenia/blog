@@ -8,7 +8,7 @@ image: /images/git.png
 tags:
   - git
 ---
-## 1. The problem and the solution
+## The problem and the solution
 So after a few years of creating new branches and pushing them to the origin, I realized that I am doing a strange thing **each time**. Let's begin the simulation.
 1. Create the branch locally.
 2. Do some changes, commit them.
@@ -44,7 +44,7 @@ git config --global --list
 
 You can of course apply this setting only to the selected repository. In this case, your working directory should be your repository and you should omit the `--global` argument. Cheers!
 
-## 2. Conclusions
+## Conclusions
 It is always worth to challenge your routine habits. The second conclusion is that it is worth to get know the tools you use 😅.
 
 - - -

@@ -9,17 +9,17 @@ tags:
   - agile software development
   - azure
 ---
-## 1. Introduction
+## Introduction
 Participants in the sprint review typically include the scrum team, management, customers, and developers from other projects (so basically anyone in the company + external people). Let me emphasize that **the review by the development team for the product owner and some kind of manager only is an antipattern**. This antipattern is so popular (at least I was there) that going out of this comfort zone (and antipattern) is hard because you used to review your work with the people you work with (doesn't this sound stupid?). But once you get out of the comfort zone, you won't ever want to go back.
 
-#### 1.1 Keeping all those people informed...
+### Keeping all those people informed...
 Before each review how would you inform the people on what was achieved during the sprint? I have experienced 2 patterns;
 - There is no information at all. Instead at the sprint review beginning, someone tells what was achieved and the agenda is formed. Often sprint backlog is adjusted during the review, to match the actual state. 
 - Writing it by yourself each time. This is much better (as meeting without agenda is the greatest meeting sin), but it costs you time that from a lean perspective is a waste (a repeatable task that can be automated) and still often the sprint backlog is adjusted during the review to meet what was described.
 
 Let me introduce the 3rd option. Automated sprint hawker!
 
-## 2. What is sprint hawker anyway?
+## What is sprint hawker anyway?
 I was inspired by the name of the old newspaper selling boy - newspaper hawker (you must have seen one in the movies!):
 
 ![](/images/hawker.png)
@@ -34,15 +34,15 @@ How it can look like? Let's have a look at the sprint hawker (I had to withhold 
 
 No one has to do anything! It is a time-triggered action that reads data from a work item query. If you are not interested tn Azure DevOps + Slack implementation go to the last section to read the summary.
 
-## 3. Sample implementation using Azure DevOps + Logic Apps and Slack. 
+## Sample implementation using Azure DevOps + Logic Apps and Slack. 
 The setup is really easy and I am sure you can replicate the behavior using a different stack (Jira + AWS Step Functions, Azure functions, etc).
 
-### 3.1 Writing the query
+### Writing the query
 In Azure DevOps go to Boards -> Queries, then click the "Add query" button. The query to get the work items should be something as simple as this:
 ![](/images/azdev_query.png)
 Remember to customize the columns (using "Column options" button in the edit), I have selected: `ID`, `Work Item Type`, `Title`, `Assigned To` columns. Save the query as shared queries, otherwise logic app won't be able to access the query.
 
-### 3.2 Setting up the logic-app
+### Setting up the logic-app
 Let's create a new logic app in the Azure portal. I will go with the designer - the logic app json is not something I am keen to write :) Let's go step by step.
 1. First let's define the recurrence. For me it is each Friday at 11:00 UTC:
 ![](/images/hawker_app1.png)
@@ -59,7 +59,7 @@ Let's create a new logic app in the Azure portal. I will go with the designer - 
 
 Done! Remember that you can always trigger the Logic App manually, make sure that the query returns something. Now you can copy the logic app json and prepare a proper arm template for repeatable infrastructure deployments.
 
-## 4. People reactions and other conclusions
+## Summary: People reactions and other conclusions
 We were all worried before the first announcement (even after 2 or 3 test runs). The first two things that came to my and other team members minds was;
 1. What if we will forget to update the sprint backlog? The hawker will write lies on the slack channel.
     * This didn't happen at all! What we've noticed is that we have been carrying more about the sprint backlog timeliness with the facts. That was the biggest win in my opinion - the transparency simply increased.

@@ -1,12 +1,10 @@
 ---
-templateKey: blog-post
-title: >-
-  Create your sprint hawker! Make your team's efforts visible and increase transparency.
+title: Create your sprint hawker! Make your team's efforts visible and increase transparency.
 date: 2020-11-28T15:00:00.000Z
 description: >-
   So the company is paying you and other people in the team money for accomplishing certain things... for building products, delivering features, solving problems, doing maintenance. You work hard, so do your peers. What about making the sprint-backlog even more transparent and automate a shout-out of what had been done in the sprint? 
-featuredpost: false
-featuredimage: /img/hawker.png
+dfaft: false
+image: /images/hawker.png
 tags:
   - agile software development
   - azure
@@ -23,13 +21,16 @@ Let me introduce the 3rd option. Automated sprint hawker!
 
 ## 2. What is sprint hawker anyway?
 I was inspired by the name of the old newspaper selling boy - newspaper hawker (you must have seen one in the movies!):
-![](/img/hawker.png)
+
+![](/images/hawker.png)
+
 The hawker used to shout about the most important news to all the people around. If someone was interested he went to the hawker to buy the newspaper. The sprint hawker also shouts about the sprint completed tasks and if someone is interested can join the review to know more. Everything you have to do is to finish the sprint (release new newspaper) and let the hawker shout!
 
 How it can look like? Let's have a look at the sprint hawker (I had to withhold some information) I created using Azure logic app and slack:
-![](/img/hawker1.png)
 
-![](/img/hawker2.png)
+![](/images/hawker1.png)
+
+![](/images/hawker2.png)
 
 No one has to do anything! It is a time-triggered action that reads data from a work item query. If you are not interested tn Azure DevOps + Slack implementation go to the last section to read the summary.
 
@@ -38,23 +39,23 @@ The setup is really easy and I am sure you can replicate the behavior using a di
 
 ### 3.1 Writing the query
 In Azure DevOps go to Boards -> Queries, then click the "Add query" button. The query to get the work items should be something as simple as this:
-![](/img/azdev_query.png)
+![](/images/azdev_query.png)
 Remember to customize the columns (using "Column options" button in the edit), I have selected: `ID`, `Work Item Type`, `Title`, `Assigned To` columns. Save the query as shared queries, otherwise logic app won't be able to access the query.
 
 ### 3.2 Setting up the logic-app
 Let's create a new logic app in the Azure portal. I will go with the designer - the logic app json is not something I am keen to write :) Let's go step by step.
 1. First let's define the recurrence. For me it is each Friday at 11:00 UTC:
-![](/img/hawker_app1.png)
+![](/images/hawker_app1.png)
 2. Let's add "Get query results" step, select the query which you have defined in point 3.1:
-![](/img/hawker_app2.png)
+![](/images/hawker_app2.png)
 3. Now we are about to prepare the message. Let's introduce a variable, which will contain the message initial text:
-![](/img/hawker_app3.png)
+![](/images/hawker_app3.png)
 4. Now let's iterate over the query result and append to string variable necessary query result columns:
-![](/img/hawker_app5.png)
+![](/images/hawker_app5.png)
 5. Finally let's post the composed message to the slack public channel; To do this you will have to establish "API Connection". Don't worry - the Slack integration action makes it easy and the small wizard will help you to do that. 
-![](/img/hawker_app6.png)
+![](/images/hawker_app6.png)
 6. See the overview of the complete logic app flow: 
-![](/img/hawker_app_all.png)
+![](/images/hawker_app_all.png)
 
 Done! Remember that you can always trigger the Logic App manually, make sure that the query returns something. Now you can copy the logic app json and prepare a proper arm template for repeatable infrastructure deployments.
 

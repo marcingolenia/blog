@@ -26,5 +26,5 @@ body {
     justify-content: space-between;
 }
 .card-img-top {
-    object-fit: cover;
+    object-fit: contain;
 }

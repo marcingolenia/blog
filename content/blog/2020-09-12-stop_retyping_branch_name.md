@@ -1,12 +1,10 @@
 ---
-templateKey: blog-post
-title: >-
-  Stop retyping your branch name when you push to origin
+title: Stop retyping your branch name when you push to origin
 date: 2020-09-12T20:00:00.000Z
 description: >-
   Just stop 🤬 There is a better way of doing it! Fire one command and spare few seconds multiplied by a hundred times. Welcome to my shortest post on this blog.
-featuredpost: false
-featuredimage: /img/git.png
+draft: false
+image: /images/git.png
 tags:
   - git
 ---
@@ -42,11 +40,6 @@ git config --global push.autoSetupRemote true
 Done. Years of copy & pasting the output command are gone. You might want to see if the configuration is correct using
 ```bash
 git config --global --list
-```
-
-Last thing to remember: If You want to pull from the remote later on, you still have to push the branch and set the tracking. But `-u` is everything you need here. So when you push for the first time use;
-```bash
-git push -u
 ```
 
 You can of course apply this setting only to the selected repository. In this case, your working directory should be your repository and you should omit the `--global` argument. Cheers!

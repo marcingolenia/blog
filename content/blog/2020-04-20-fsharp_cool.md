@@ -1,15 +1,14 @@
 ---
-templateKey: blog-post
 title: 'Few snippets that prove F# COOLNESS'
 date: 2020-04-20T23:20:10.000Z
 description: >-
   There's a legend around F# that the language is good for science, academic stuff (yes it is good for this as well but not only). Most people think that functional languages are complicated and thus will make them not productive. Nonsense! Let me introduce you to some cool F# features that can make you more productive. You can put away difficult things into the future, meanwhile use F# to write correct and concise code and create bullet-proof cool apps! Let me start with F# justification as a modern language then some functional programming evangelism, after that I will give you some F# selling points.
-featuredpost: false
-featuredimage: /img/fsharp.webp
+draft: false
+image: /images/fsharp.webp
 tags:
   - fsharp
 ---
-## 1. Is F# modern language?
+## Is F# modern language?
 Most of the Fsharpers are Csharpers first. Let me write about C# a little bit. Let's look into new C# 8.0 features that you already know and love:
 * Pattern matching - we have this in F# since 2005 with features you can dream of (upgraded with active patterns in 2010). For Fsharpers the pattern matching C# is a toy for kids. Examples will come. 
 * Using declarations - it is so old in F#...
@@ -23,13 +22,13 @@ Most of the Fsharpers are Csharpers first. Let me write about C# a little bit. L
 C# 8.0 is with us for some time already isn't it? I have not seen any confirmed features of C# 9.0 but the rumors are saying... Records! We have them for 15 years in F#. People are writing about discards in lambda (boring), or improved pattern matching (can you beat F#? I don't think so), yield expression - yes, yes F# has it.
 Let's put the sarcasm aside. Don't get me wrong I still love C# but do you see where it is going? Isn't it functional programming the future? 
 
-## 2. Doubts over doubts... But the word consists of objects... and we do model world-class problems. Besides is functional SOLID?
+## Doubts over doubts... But the word consists of objects... and we do model world-class problems
 I have many doubts at the beginning but then I thought that functional programming is so long out there... Lisp (1958), Haskell (1990), Clojure, F# so it would be just good for me to know at least one functional language. According to The Pragmatic Programmer by David Thomas, Andrew Hunt [1] you should learn one language each year (I'm below these expectations anyway) so let it be a functional one. Some time has passed since that moment so let me share with you my experience. Maybe I will accelerate your decision to step into the functional world.
 
-### 2.1 The OO is better for modeling real-world problems.
+### The OO is better for modeling real-world problems
 I am still not sure why I had been thinking that way... worst... I am not sure why so many people think that way! No book, no rule says that. Eric Evans, Vaugh Vernon (the kings of DDD) doesn't say that FP is not suitable for modeling. On the other hand, we have a great book "Domain-Driven Design made functional" by Scott Wlashin [2] which proves F# (F# is used there for examples but it applies to most of the functional languages) excellence in modeling. Furthermore, let me use a graphic regarding OO modeling:
 
-![](/img/oo.png)
+![](/images/oo.png)
 
 If you create software for more than 3 years I am sure you nod your head looking at this picture. Believe me that this is serious. Kelvin Hanney talks about it in his great speech about *Seven Ineffective Coding Habits of Many Programmers*[3]. One may say 
 > yeah sure, but you can do this stuff in FP as well.
@@ -39,17 +38,17 @@ However, functional programming is all about implementing behaviors, that are in
 
 If you don't mind a little bit of history let me mention that in 2001, Edsger W. Dijkstra wrote a letter to the Budget Council of The University of Texas about functional programming (Haskell in this case) when they wanted to replace the course with Java [4]. I am not in the opinion that OO is bad, it's good - you can do awesome apps that way, model many domains. I am in the opinion that the functional paradigm is underestimated.
 
-### 2.2 SOLID and functional programming
+### SOLID and functional programming
 SOLID is a set of universal values and yes I am aware that Wikipedia says that this is OO principle but even the creator of the acronym says:
 
 > The principles of software design still apply, regardless of your programming style. The fact that you’ve decided to use a language that doesn’t have an assignment operator does not mean that you can ignore the Single Responsibility Principle; or that the Open-Closed Principle is somehow automatic. The fact that the Strategy pattern makes use of polymorphism does not mean that the pattern cannot be used in a good functional language - *Robert C. Martin* [5].
 
 From my experience writing SOLID code in the functional paradigm is more automatic (thus easier) than in an object-oriented paradigm. Having this in mind other rules from OO still apply: Principles of package cohesion, Principles of package coupling (you can read about them in [6]).
 
-## 3. F# COOLNESS
+## F# COOLNESS
 That was a long foreword. Let's take a look at some great features that F# has. For the examples, I will use F# scripting capability which is built into the language. I will use F# 5.0 (preview currently) as this version makes it easier to deal with packages in scripts. I just love this feature and I am looking forward to automating some repetitive work tasks using F#. 
 
-### 3.1 Type providers and computation expressions
+### Type providers and computation expressions
 Type provider is simply an adapter that loads data respecting its schema and then turns this data and schema into types of target programming language. These types can be used by compiler and IntelliSense. Let me give you three examples.
 
 #### World Bank Data
@@ -78,10 +77,10 @@ Having this let's execute the script. You can use IDE (alt+enter in VSCode or Vi
 dotnet fsi --langversion:preview worldbank1.fsx
 ```
 Once F# will be out of preview you can drop the `--langversion` part. The result?
-![](/img/post5/worldbank1.png)
+![](/images/worldbank1.png)
 
 How cool is that? There is full IntelliSense for Poland or Indicator name:
-![](/img/post5/worldbank3.png)
+![](/images/worldbank3.png)
 
 To show something even more cool let's add Germany to the chart and download the data asynchronously in parallel.
 
@@ -109,7 +108,7 @@ countries
   |> Chart.EntitleCo2
   |> Chart.Show
 ```
-![](/img/post5/worldbank2.png)
+![](/images/worldbank2.png)
 
 If you want to see more countries here just extend the countries' array with more names in a type-safe way. One note here - do you see how concise the code is? Most of the code is about chart formatting (title, labels, type). Async operations are extremely easy to handle, fetching data and referencing packages - all that in 22 lines of code that can be run on Linux, Windows, macOS. The browser will be opened for you with the chart included <b style="color:red">❤</b>.
 
@@ -148,7 +147,7 @@ let pokemonMoves = getPokemon "psyduck" |> Async.RunSynchronously
 ```
 this is a trivial example but in more side-effects driven asynchronous workflow it may save the day.
 
-### Html type provider 
+#### Html type provider 
 That one enables you to parse HTML documents in a type-safe way. Let me give an example from [4] which made me say "woaaahh" once I executed it.
 ```fsharp
 #r "nuget: Fsharp.Data"
@@ -163,7 +162,7 @@ Species.GetSample().Tables.``Species list``.Rows
 ```
 That's it! A list of most 100 endangered species is printing on the console in this few lines of code. You can even create your type providers - it is hard art but yet powerful. You can read more about that in [7].
 
-### 3.2 Structural equality
+### Structural equality
 In C# when you want to test for equality between objects you have to implement the `IEquatable<>` interface. In F# you have this for free. Consider the example below:
 
 ```fsharp
@@ -265,7 +264,7 @@ namespace ClassLibrary
 }
 ```
 If you want to have something like company hierarchy `IComparable<>` waits for you.
-### 3.3 Rich types system
+### Rich types system
 Let me start with a quotation:
 > Make illegal states unrepresentable - *Yaron Minsky*
 
@@ -312,7 +311,7 @@ printfn "%A" deck
 ```
 If you want to know a little bit more about types and modeling in F# quickly I advise you to watch a talk by Scott Wlashin about it [8].
 
-### 3.4 Type inference and automatic generalization
+### Type inference and automatic generalization
 F# is a strongly typed language with automatic generalization. Consider the following function: 
 ```fsharp
 let addToListIfNotThere list item =
@@ -330,7 +329,7 @@ let addToListIfNotThereAndGt0 list item =
 F# will automaticaly constraint the type for us and conclude the type:
 `val addToListIfNotThereAndGt0 : list:int list -> item:int -> int list`.
 
-### 3.5 Top-down ordering
+### Top-down ordering
 For some of you, it may be hard to believe but code and file ordering is important in F#. This means that you won't be able to use types, functions defined in files that are placed below the current file. You won't be able to use types and functions which are defined below your current position in the file. The same top-down ordering rule applies to solutions folders. As this seems to be strange and discouraging at the beginning it won't bother you as you go with more code after some practice. I see two main benefits thanks to this "feature":
 
 * Guarantee that you won't fall into the circular dependencies.
@@ -338,7 +337,7 @@ For some of you, it may be hard to believe but code and file ordering is importa
 
 Any downsides? Not to me.
 
-### 3.6 Pattern matching
+### Pattern matching
 Let's start with something basic. The snippet below when age is given in seconds, calculates how old someone would be on another planet:
 ```fsharp
 module SpaceAge
@@ -405,7 +404,7 @@ match person with
 ```
 There is even more! If you are interested in more advanced techniques with pattern matching make sure to check *A Deep Dive into Active Patterns with Paul Blasucci* [9].
 
-### 3.7 Units of measure
+### Units of measure
 For domains which require specific calculations (economy, electricity, speed, time, power and other physical measures) we can embrace F# units of measure. F# allows to define custom units and conversions. A basic example:
 ```fsharp
 [<Measure>] type h
@@ -430,7 +429,7 @@ val dailyWage : int<zl/day> = 120
 val monthlyWage : int<zl/month> = 2520
 ```
 
-### 3.8 Spaces in names
+### Spaces in names
 It sounds trivial but I love this feature. This is handy in type providers (check again the HTML type provider - do you see variable names with spaces?) and tests. Frequently I am naming my tests in C# like this:
 ```csharp
 [Fact]
@@ -444,7 +443,7 @@ let ``Given align expenses when billing items have reservationIds that were alre
  ```
 A little thing but gives a lot of happiness. Cool, isn't it?
 
-### 3.9 R bindings
+### R bindings
 Just to mention (because I didn't have a chance yet to use it) If you are into machine learning you may appreciate F# R Type provider which discovers R packages that are available in your R installation and makes them available as .NET namespaces underneath the parent namespace RProvider. Keep in mind F# also supports data science quite well [10].
 
 ## Summary
@@ -452,21 +451,18 @@ You have all these features with a concise syntax thanks to FP currying, piping 
 
 There are many great histories in using F# - for example, https://jet.com/ - an online shop that supports millions of customers using microservices. I hope I caught your eye on F#. All code is available on [github repository](https://github.com/marcingolenia/fscool). Have fun!
 
-![](/img/fsharp_cool.jpg)
+![](/images/fsharp_cool.jpg)
 
 - - -
-
-<small>
-<b>References:</b>
-
-[1] *The Pragmatic Programmer* by David Thomas, Andrew Hunt<br/>
-[2] *Domain-Driven Design made functional* Scott Wlashin<br/>
-[3] *[Seven Ineffective Coding Habits of Many Programmers](https://www.youtube.com/watch?v=ZsHMHukIlJY)* Kevlin Henney<br/>
-[4] *[To the members of the Budget Council](http://www.cs.utexas.edu/users/EWD/OtherDocs/To%20the%20Budget%20Council%20concerning%20Haskell.pdf)* Edsger W.Dijkstra<br/>
-[5] *[CleanCoder blog](http://blog.cleancoder.com/uncle-bob/2014/11/24/FPvsOO.html)* Robert C. Martin<br/>
-[6] *Clean Architecture: A Craftsman's Guide to Software Structure and Design* Robert C. Martin<br/>
-[7] *Expert F# 4.0* Don Syme, Adam Granicz.<br/>
-[8] *[Domain Modeling Made Functional](https://www.youtube.com/watch?v=Up7LcbGZFuo)* Scott Wlashin<br/>
-[9] *[A Deep Dive into Active Patterns](https://www.youtube.com/watch?v=Q5KO-UDx5eA)* Paul Blasucci<br/>
-[10] *Analyzing and Visualizing Data with F#* Tomas Petricek<br/>
+**References:**\
+[1] *The Pragmatic Programmer* by David Thomas, Andrew Hunt\
+[2] *Domain-Driven Design made functional* Scott Wlashin\
+[3] *[Seven Ineffective Coding Habits of Many Programmers](https://www.youtube.com/watch?v=ZsHMHukIlJY)* Kevlin Henney\
+[4] *[To the members of the Budget Council](http://www.cs.utexas.edu/users/EWD/OtherDocs/To%20the%20Budget%20Council%20concerning%20Haskell.pdf)* Edsger W.Dijkstra\
+[5] *[CleanCoder blog](http://blog.cleancoder.com/uncle-bob/2014/11/24/FPvsOO.html)* Robert C. Martin\
+[6] *Clean Architecture: A Craftsman's Guide to Software Structure and Design* Robert C. Martin\
+[7] *Expert F# 4.0* Don Syme, Adam Granicz.\
+[8] *[Domain Modeling Made Functional](https://www.youtube.com/watch?v=Up7LcbGZFuo)* Scott Wlashin\
+[9] *[A Deep Dive into Active Patterns](https://www.youtube.com/watch?v=Q5KO-UDx5eA)* Paul Blasucci\
+[10] *Analyzing and Visualizing Data with F#* Tomas Petricek\
 [11] *Get Programming With F#: A Guide for .net Developers* Isaac Abraham

@@ -7,9 +7,8 @@ description: >-
 date: 2023-12-23T23:29:21+05:30
 draft: false
 tags:
-  - Markdown syntax
-  - Sample
-  - example
+  - fsharp
+  - REST
 image: /images/restglory.png
 ---
 

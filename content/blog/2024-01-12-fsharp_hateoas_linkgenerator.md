@@ -17,9 +17,9 @@ From MSDN [1] docs:
 
 > LinkGenerator efines a contract to generate absolute and related URIs based on endpoint routing.
 
-I've found an example in C# on a blog: 
+I've found an example in C# on a blog [2]: 
 
-Endpoints:
+Some endpoints:
 ```csharp
 app.MapGet("/messages", Ok<List<TextMessageDto>> () =>
 {
@@ -29,36 +29,26 @@ app.MapGet("/messages", Ok<List<TextMessageDto>> () =>
         new TextMessageDto { Id = 1, Message = "Yet another Hello, World!"}
     };
     return TypedResults.Ok(textMessages);
-})
-.WithName("readmessages");
+}).WithName("readmessages");
 
 app.MapGet("/messages/{id}", Ok<TextMessageDto> (int id) =>
 {
     //TODO : Implement a lookup for messages
     return TypedResults.Ok(new TextMessageDto { Id = id, Message = $"Hello, World! The id is {id}" });
-})
-.WithName("readmessagebyid");
-
-app.MapPost("/messages", (...) =>
-{
-    //save the message
-})
-.WithName("savemessage");
+}).WithName("readmessagebyid");
 
 app.MapPut("/messages/{id}", (...) =>
 {
     //update message
-})
-.WithName("updatemessage");
+}).WithName("updatemessage");
 
 app.MapDelete("/messages/{id}", (...) =>
 {
     //delete message
-})
-.WithName("deletemessage");
+}).WithName("deletemessage");
 ```
 
-Using link generator:
+And an endpoint that uses LinkGenerator:
 ```csharp
 //use the LinkGenerator class to build the url for each endpoint by using the endpointname associated with each endpoint 
 app.MapGet("/messages/{id}", Ok<TextMessageDto> (int id, HttpContext httpContext, LinkGenerator linkGenerator) =>
@@ -78,36 +68,61 @@ app.MapGet("/messages/{id}", Ok<TextMessageDto> (int id, HttpContext httpContext
 I see some tradeoffs:
 1. It looks that it can save us from some troubles when we want to do some changes in our API that involve changing URI paths as we 
 can refer to an endpoint by name instead of the full API path, but we have to bother now with naming the endpoints.
-2. We don't have to hardcode paths versus we have to hardcode endpoint names. 
+2. We don't have to hardcode paths versus we have to hardcode endpoint names.
 3. While in C# we can get some extra typesafety (in C# string interpolation actually doesn't check the types), we can have the same benefit in F# by using typed interpolated strings, so let's pretend that this point doesn't exist (as this is blog post about F# not C#).
 
 So... I am somewhat sceptical but let's go. We have to try it, before I can make an opinion.
 
-## Adding link generator to our existing API
+## Using Link Generator in F# Giraffe
+LinkGenerator can be retrieved from services by quering .net HttpContext like so;
+```fsharp
+    fun (next: HttpFunc) (ctx: HttpContext) ->
+        let linker = ctx.GetService<LinkGenerator>()
+```
+The most important 2 methods are `GetPathByName` and `GetUriByName`. Let's consider `http://localhost/accommodation/houses/Gryffindor`. The first will return the path - so `/accommodation/houses/Gryffindor` from the URL, the second will include the protocol and domain name. Both are good - depends if You want the client to handle the protocol and domain or if You want to provide full URL.
 
 
-
-
-## Conclusions
-
-
-
+### Giraffe uses format strings...
+### Other frameworks - Let's try in Falco
+### Adding it to our API
+The endpoint definition will change slightly (names are just added): 
+```fsharp
+let endpoints =
+    [
+      OPTIONS [
+          route "/" readOptions
+      ]
+      GET [
+            routef "/houses/%s/students" readStudentsBy |> addMetadata(EndpointNameMetadata "get_house_students") 
+            routef "/houses/%s" readHouseBy |> addMetadata(EndpointNameMetadata "get_houses_by") 
+            route "/houses" readHouses |> addMetadata(EndpointNameMetadata "get_houses")
+          ]
+      DELETE [
+          routef "/houses/%s/students/%s" deleteStudentBy
+      ]
+    ]
+```
+and let's see how the `route "/houses" readHouses` looks like: 
 ```fsharp
 let readHouses: HttpHandler =
     fun (next: HttpFunc) (ctx: HttpContext) ->
+        let linker = ctx.GetService<LinkGenerator>()
         let data =
             houses
             |> List.map (fun house ->
                 { Name = house.Name.ToString()
                   Links =
                     [ { Rel = "self"
-                        Href = $"/accommodation/houses/{house.Name.ToString()}" }
+                        Href = linker.GetPathByName("get_houses_by", {|s0 = house.Name.ToString()|}) }
                       { Rel = "all_students"
-                        Href = $"/accommodation/houses/{house.Name.ToString()}/students" }
-                    ] })
-
+                        Href = linker.GetPathByName("get_house_students", {|s0 = house.Name.ToString()|})}
+                    ]})
         json data next ctx
 ```
+
+## Conclusions
+I don't have to think about parent path in my routing. This in my eyes is a big benefit as the module gains more autonomy. The s0,s1,s2... i0 etc may look bad, but at the end of the day I love to have format strings as part of my routing which automatically can validate my handler function paramater types. I am going to use LinkGenerator. 
+The final conclusion is that is it worth to test a thing by your own before you give a rigid opinion. 
 
 
 

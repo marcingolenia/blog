@@ -10,7 +10,13 @@ tags:
 image: /images/restglory.png
 ---
 ## Intro
-Some libraries have built-in mechanics which can help us in creating HATEOAS. In spring we have `WebMvcLinkBuilder`, in .net MVC we have `IUrlHelper`, now in .net core minimal APIs we have `LinkGenerator`. Let's check if this can actually help. 
+This is 2nd post in this 3-post series:
+I will divide the topic into 3 parts:
+1. [HATEOAS in F#](/blog/2023-12-23-fsharp_hateoas/) + [source code](https://github.com/marcingolenia/hateoas_fsharp)
+2. Let's try LinkGenerator to see if it can simplify HATEOAS implementation (this post) + [source code](https://github.com/marcingolenia/hateoas_fsharp/tree/link_generator)
+3. Consuming RESTful API and leveraging HATEOAS in F# Fable app (coming soon)
+
+Some libraries have built-in mechanics which can help us in creating HATEOAS. In spring we have `WebMvcLinkBuilder`, in .net MVC we have `IUrlHelper`, now in .net core minimal APIs we have `LinkGenerator`. Let's check if this can actually help. [Here](https://github.com/marcingolenia/hateoas_fsharp/tree/link_generator) you can find the updated code.
 
 ### What is LinkGenerator
 From MSDN [1] docs:
@@ -81,8 +87,28 @@ LinkGenerator can be retrieved from services by quering .net HttpContext like so
 ```
 The most important 2 methods are `GetPathByName` and `GetUriByName`. Let's consider `http://localhost/accommodation/houses/Gryffindor`. The first will return the path - so `/accommodation/houses/Gryffindor` from the URL, the second will include the protocol and domain name. Both are good - depends if You want the client to handle the protocol and domain or if You want to provide full URL.
 
-
 ### Giraffe uses format strings...
+Yup. So in C# You have this:
+```csharp
+app.MapGet("/messages/{id}", Ok<TextMessageDto> (int id) =>
+```
+in F# You have this:
+```fsharp
+ GET [
+       routef "/messages/%s" func test 
+     ]
+```
+In C# You can pass an object for the route values. It is then used to expand parameters in the route template with matching property name ("id" in this case): 
+```
+linkGenerator.GetPathByName("readmessagebyid",values: new{id})
+```
+in F#... well: 
+```
+linker.GetPathByName("get_houses_by", {|s0 = houseName |})
+```
+at least in Giraffe. When there are more route values then You increase the number: s0, s1, s2 and so on. Not that nice but yeah... I can accept this.
+
+
 ### Other frameworks - Let's try in Falco
 ### Adding it to our API
 The endpoint definition will change slightly (names are just added): 
@@ -124,10 +150,9 @@ let readHouses: HttpHandler =
 I don't have to think about parent path in my routing. This in my eyes is a big benefit as the module gains more autonomy. The s0,s1,s2... i0 etc may look bad, but at the end of the day I love to have format strings as part of my routing which automatically can validate my handler function paramater types. I am going to use LinkGenerator. 
 The final conclusion is that is it worth to test a thing by your own before you give a rigid opinion. 
 
-
-
 ---
 **References:**\
 [1] [MSDN LinkGenerator](https://learn.microsoft.com/pl-pl/dotnet/api/microsoft.aspnetcore.routing.linkgenerator)\
 [2] [Minimal APIs and HATEOAS, Poornima Nayar](https://poornimanayar.co.uk/blog/minimal-apis-and-hateoas)\
 [3] https://github.com/giraffe-fsharp/Giraffe/issues/569
+[4] [Full source code](https://github.com/marcingolenia/hateoas_fsharp/tree/link_generator)

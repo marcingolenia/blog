@@ -27,7 +27,7 @@ for some additional complexity.
 
 I will divide the topic into 3 parts:
 1. HATEOAS in F# (this post) + [source code](https://github.com/marcingolenia/hateoas_fsharp)
-2. Let's try LinkGenerator to see if it can simplify HATEOAS implementation (coming soon)
+2. [Let's try LinkGenerator to see if it can simplify HATEOAS implementation](/blog/2024-01-12-fsharp_hateoas_linkgenerator/) + [source code](https://github.com/marcingolenia/hateoas_fsharp/tree/link_generator)
 3. Consuming RESTful API and leveraging HATEOAS in F# Fable app (coming soon)
 
 ## The problem 

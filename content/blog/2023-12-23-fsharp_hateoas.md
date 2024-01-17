@@ -26,7 +26,7 @@ Sounds boring? Maybe, but it can save you from writing a lot of code and remove 
 for some additional complexity.
 
 I will divide the topic into 3 parts:
-1. HATEOAS in F# (this post)
+1. HATEOAS in F# (this post) + [source code](https://github.com/marcingolenia/hateoas_fsharp)
 2. Let's try LinkGenerator to see if it can simplify HATEOAS implementation (coming soon)
 3. Consuming RESTful API and leveraging HATEOAS in F# Fable app (coming soon)
 
@@ -482,4 +482,5 @@ good stuff about HATEOAS even if you are not using spring.
 [1] RESTful Web Services Cookbook, Subbu Allamaraju, O'Reilly 2010. Chapter 14, Enabling Discovery.\
 [2] https://www.iana.org/assignments/link-relations/link-relations.xhtml\
 [3] [Crafting domain driven web APIs - By Julien Topçu](https://www.youtube.com/watch?v=bHc8Gudrhdo)\
-[4] [Spring Hateoas documentation](https://docs.spring.io/spring-hateoas/docs/current/reference/html/)
+[4] [Spring Hateoas documentation](https://docs.spring.io/spring-hateoas/docs/current/reference/html/)\
+[5] [Full source code](https://github.com/marcingolenia/hateoas_fsharp)

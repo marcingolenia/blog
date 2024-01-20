@@ -4,7 +4,7 @@ description: >-
     Hypermedia as the engine of application state (HATEOAS) is 24 years old now! 
     I am coding for more than 12 years and yet I didn't see it on production in projects I worked with. 
     Why? Is it so bad? Complex?
-date: 2023-12-23T23:29:21+05:30
+date: 2023-12-23T23:29:21
 draft: false
 tags:
   - fsharp

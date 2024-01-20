@@ -83,6 +83,18 @@ The most important 2 methods are `GetPathByName` and `GetUriByName`. Let's consi
 
 
 ### Giraffe uses format strings...
+Yup. So in C# You have this:
+```csharp
+app.MapGet("/messages/{id}", Ok<TextMessageDto> (int id) =>
+```
+in F# You have this:
+```fsharp
+ GET [
+       routef "/messages/%s" func test 
+     ]
+```
+When it comes to 
+
 ### Other frameworks - Let's try in Falco
 ### Adding it to our API
 The endpoint definition will change slightly (names are just added): 

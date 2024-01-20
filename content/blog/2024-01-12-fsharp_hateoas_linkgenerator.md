@@ -81,23 +81,8 @@ LinkGenerator can be retrieved from services by quering .net HttpContext like so
 ```
 The most important 2 methods are `GetPathByName` and `GetUriByName`. Let's consider `http://localhost/accommodation/houses/Gryffindor`. The first will return the path - so `/accommodation/houses/Gryffindor` from the URL, the second will include the protocol and domain name. Both are good - depends if You want the client to handle the protocol and domain or if You want to provide full URL.
 
-
-### Giraffe uses format strings...
-Yup. So in C# You have this:
-```csharp
-app.MapGet("/messages/{id}", Ok<TextMessageDto> (int id) =>
-```
-in F# You have this:
-```fsharp
- GET [
-       routef "/messages/%s" func test 
-     ]
-```
-When it comes to 
-
-### Other frameworks - Let's try in Falco
 ### Adding it to our API
-The endpoint definition will change slightly (names are just added): 
+The endpoint definition `will change slightly (names are just added): 
 ```fsharp
 let endpoints =
     [
@@ -114,7 +99,7 @@ let endpoints =
       ]
     ]
 ```
-and let's see how the `route "/houses" readHouses` looks like: 
+and let's see how the route "/houses" `readHouses` looks like: 
 ```fsharp
 let readHouses: HttpHandler =
     fun (next: HttpFunc) (ctx: HttpContext) ->
@@ -132,11 +117,41 @@ let readHouses: HttpHandler =
         json data next ctx
 ```
 
+s0... what's that? ...
+
+### Giraffe uses format strings...
+Yup. So in C# You have this:
+```csharp
+app.MapGet("/messages/{id}", Ok<TextMessageDto> (int id) =>
+```
+in F# You have this:
+```fsharp
+ GET [
+       routef "/messages/%s" func test 
+     ]
+```
+When it comes to 
+![](/images/linker_giraffe.png)
+
+### Other frameworks - Let's try in Falco
+I hoped that in falco it will be possible to name an endpoint and pass record with peroper names instead {s1}, {s2} and so on as it uses route templates instead of format strings. First impression was good:
+![](/images/linker_falco.png)
+
+but I was not able add endpoint name. In C# when we use `map`, `mapGet` etc we operate on `IEndpointConventionBuilder` whereas in Falco we operate on `HttpEndpoint` (Falco built-in type) and in Giraffe on `Endpoint` built-in type. Giraffe provides addMetadata function to extend the configuration while in Falco we don't have such option (at least for now).
+
 ## Conclusions
-I don't have to think about parent path in my routing. This in my eyes is a big benefit as the module gains more autonomy. The s0,s1,s2... i0 etc may look bad, but at the end of the day I love to have format strings as part of my routing which automatically can validate my handler function paramater types. I am going to use LinkGenerator. 
+I don't have to think about parent path in my routing when I am dealing with subRoute, so from our Program.fs file: 
+```fsharp
+let endpoints useMocks =
+    let auth = if useMocks then applyBefore fakeAuth else id
+    [
+        GET [ route "/health" (text "Up") ]
+        auth (subRoute "/accommodation" HouseAllocation.Router.endpoints)
+    ]
+```
+
+I can forget about the `/accomodation` fragment. This in my eyes is a big benefit as the subroute links will continue to work when I will change the `/accomodation` to for example `/hausing`. Without it I will break all links and I will have to update each of them separetely. The s0,s1,s2... i0 etc may look bad, but at the end of the day I love to have format strings as part of my routing which automatically can validate my handler function paramater types. I am going to use LinkGenerator. 
 The final conclusion is that is it worth to test a thing by your own before you give a rigid opinion. 
-
-
 
 ---
 **References:**\

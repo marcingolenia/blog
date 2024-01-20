@@ -2,8 +2,8 @@
 title: Let's try .net LinkGenerator, will it make working with links easier?
 description: >-
     This is a continuation to "HATEOAS in F#" post. Let's try to simplify link generatrion in our Hogwarts accommodation API. 
-date: 2024-01-08T23:29:21+05:30
-draft: true
+date: 2024-01-21T23:29:21+05:30
+draft: false
 tags:
   - fsharp
   - rest
@@ -11,10 +11,9 @@ image: /images/restglory.png
 ---
 ## Intro
 This is 2nd post in this 3-post series:
-I will divide the topic into 3 parts:
 1. [HATEOAS in F#](/blog/2023-12-23-fsharp_hateoas/) + [source code](https://github.com/marcingolenia/hateoas_fsharp)
 2. Let's try LinkGenerator to see if it can simplify HATEOAS implementation (this post) + [source code](https://github.com/marcingolenia/hateoas_fsharp/tree/link_generator)
-3. Consuming RESTful API and leveraging HATEOAS in F# Fable app (coming soon)
+3. Consuming RESTful API and leveraging HATEOAS (coming soon)
 
 Some libraries have built-in mechanics which can help us in creating HATEOAS. In spring we have `WebMvcLinkBuilder`, in .net MVC we have `IUrlHelper`, now in .net core minimal APIs we have `LinkGenerator`. Let's check if this can actually help. [Here](https://github.com/marcingolenia/hateoas_fsharp/tree/link_generator) you can find the updated code.
 
@@ -123,7 +122,7 @@ let readHouses: HttpHandler =
         json data next ctx
 ```
 
-s0... what's that? ...
+You can see other endpoints in the [Full source code](https://github.com/marcingolenia/hateoas_fsharp/tree/link_generator). But wait... `s0``... what's that? ...
 
 ### Giraffe uses format strings...
 Yup. So in C# You have this:
@@ -136,11 +135,15 @@ in F# You have this:
        routef "/messages/%s" func test 
      ]
 ```
-When it comes to 
+and `messages/%s` at the end of the day is translated to route template and looks like this: 
 ![](/images/linker_giraffe.png)
 
+This may look strange, especially when You look on my anonymous records `{|s0 = house.Name.ToString()|}` but it doesn't hurt readibility that much if I can understand what endpoint I am refering to - I am passing it's name. So instead `get_house_students` I can name it `get_students_by_house_name` and then I know that `s0` is house name. For multiple route paramaters I can work on the naming as well, for example `get_students_by_house_name_and_year` and I can pass `{|s0 = "Slytherin"; i0 = 1989|}`. 
+
+Actually I have opened a [GitHub issue](https://github.com/giraffe-fsharp/Giraffe/issues/569) maybe I don't know something, maybe this can be improved in the near future.
+
 ### Other frameworks - Let's try in Falco
-I hoped that in falco it will be possible to name an endpoint and pass record with peroper names instead {s1}, {s2} and so on as it uses route templates instead of format strings. First impression was good:
+I hoped that in falco it will be possible to name an endpoint and pass record with peroper names instead {s0}, {s1} and so on as it uses route templates instead of format strings. First impression was good:
 ![](/images/linker_falco.png)
 
 but I was not able add endpoint name. In C# when we use `map`, `mapGet` etc we operate on `IEndpointConventionBuilder` whereas in Falco we operate on `HttpEndpoint` (Falco built-in type) and in Giraffe on `Endpoint` built-in type. Giraffe provides addMetadata function to extend the configuration while in Falco we don't have such option (at least for now).
@@ -156,12 +159,13 @@ let endpoints useMocks =
     ]
 ```
 
-I can forget about the `/accomodation` fragment. This in my eyes is a big benefit as the subroute links will continue to work when I will change the `/accomodation` to for example `/hausing`. Without it I will break all links and I will have to update each of them separetely. The s0,s1,s2... i0 etc may look bad, but at the end of the day I love to have format strings as part of my routing which automatically can validate my handler function paramater types. I am going to use LinkGenerator. 
+I can forget about the `/accomodation` fragment. This in my eyes is a big benefit as the subroute links will continue to work when I will change the `/accomodation` to for example `/hausing`. Without it I will break all links and I will have to update each of them separetely. The s0, s1, s2... i0 etc may look bad, but at the end of the day I love to have format strings as part of my routing which automatically can validate my handler function paramater types. I am going to use LinkGenerator. 
+
 The final conclusion is that is it worth to test a thing by your own before you give a rigid opinion. 
 
 ---
 **References:**\
 [1] [MSDN LinkGenerator](https://learn.microsoft.com/pl-pl/dotnet/api/microsoft.aspnetcore.routing.linkgenerator)\
 [2] [Minimal APIs and HATEOAS, Poornima Nayar](https://poornimanayar.co.uk/blog/minimal-apis-and-hateoas)\
-[3] https://github.com/giraffe-fsharp/Giraffe/issues/569
+[3] https://github.com/giraffe-fsharp/Giraffe/issues/569\
 [4] [Full source code](https://github.com/marcingolenia/hateoas_fsharp/tree/link_generator)

@@ -10,7 +10,13 @@ tags:
 image: /images/restglory.png
 ---
 ## Intro
-Some libraries have built-in mechanics which can help us in creating HATEOAS. In spring we have `WebMvcLinkBuilder`, in .net MVC we have `IUrlHelper`, now in .net core minimal APIs we have `LinkGenerator`. Let's check if this can actually help. 
+This is 2nd post in this 3-post series:
+I will divide the topic into 3 parts:
+1. [HATEOAS in F#](/blog/2023-12-23-fsharp_hateoas/) + [source code](https://github.com/marcingolenia/hateoas_fsharp)
+2. Let's try LinkGenerator to see if it can simplify HATEOAS implementation (this post) + [source code](https://github.com/marcingolenia/hateoas_fsharp/tree/link_generator)
+3. Consuming RESTful API and leveraging HATEOAS in F# Fable app (coming soon)
+
+Some libraries have built-in mechanics which can help us in creating HATEOAS. In spring we have `WebMvcLinkBuilder`, in .net MVC we have `IUrlHelper`, now in .net core minimal APIs we have `LinkGenerator`. Let's check if this can actually help. [Here](https://github.com/marcingolenia/hateoas_fsharp/tree/link_generator) you can find the updated code.
 
 ### What is LinkGenerator
 From MSDN [1] docs:
@@ -158,3 +164,4 @@ The final conclusion is that is it worth to test a thing by your own before you 
 [1] [MSDN LinkGenerator](https://learn.microsoft.com/pl-pl/dotnet/api/microsoft.aspnetcore.routing.linkgenerator)\
 [2] [Minimal APIs and HATEOAS, Poornima Nayar](https://poornimanayar.co.uk/blog/minimal-apis-and-hateoas)\
 [3] https://github.com/giraffe-fsharp/Giraffe/issues/569
+[4] [Full source code](https://github.com/marcingolenia/hateoas_fsharp/tree/link_generator)

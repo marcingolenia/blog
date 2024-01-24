@@ -20,9 +20,6 @@ enableRobotsTXT: true
 
 markup:
   highlight:
-      anchorLineNos: false
-      codeFences: true
-      guessSyntax: false
       hl_Lines: ""
       hl_inline: false
       lineAnchors: ""
@@ -30,7 +27,7 @@ markup:
       lineNumbersInTable: false
       noClasses: true
       noHl: false
-      style: monokai
+      style: hrdark
       tabWidth: 2
   goldmark:
     renderer:

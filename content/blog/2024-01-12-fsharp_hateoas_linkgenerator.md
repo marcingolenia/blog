@@ -2,7 +2,7 @@
 title: Let's try .net LinkGenerator, will it make working with links easier?
 description: >-
     This is a continuation to "HATEOAS in F#" post. Let's try to simplify link generatrion in our Hogwarts accommodation API. 
-date: 2024-01-21T08:44:00+01:00
+date: 2024-01-21T08:45:00+01:00
 draft: false
 tags:
   - fsharp

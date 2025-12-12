@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>MARCIN.DEV [TERMINAL]</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=VT323&display=swap"
+      rel="stylesheet"
+    />
+    <!-- CSS Files -->
+    <link rel="stylesheet" href="css/variables.css" />
+    <link rel="stylesheet" href="css/layout.css" />
+    <link rel="stylesheet" href="css/crt-effects.css" />
+    <link rel="stylesheet" href="css/components.css" />
+    <link rel="stylesheet" href="css/boot.css" />
+    <link rel="stylesheet" href="css/terminal.css" />
+    <link rel="stylesheet" href="css/print.css" />
+  </head>
+  <body>
+    <!-- Boot Screen -->
+    <div class="boot-screen" id="boot-screen">
+      <div class="boot-text" id="boot-text"></div>
+    </div>
+
+    <div class="vhs-tracking">
+      <div class="vhs-line"></div>
+      <div class="vhs-line"></div>
+      <div class="vhs-line"></div>
+    </div>
+
+    <div class="layout">
+      <aside class="sidebar">
+        <div class="header">
+          <h1>MARCIN_DEV.EXE</h1>
+          <small>v1.4.0 [STABLE]</small>
+        </div>
+
+        <ul class="menu-list">
+          <li class="menu-item active" data-target="home">01_HOME.BAT</li>
+          <li class="menu-item" data-target="experience">02_EXPERIENCE.LOG</li>
+          <li class="menu-item" data-target="skills">03_SKILLS.DAT</li>
+          <li class="menu-item" data-target="projects">04_PROJECTS.DIR</li>
+          <li class="menu-item" data-target="contact">05_CONTACT.TXT</li>
+          <li class="menu-item" data-target="download">06_DOWNLOAD.PDF</li>
+        </ul>
+
+        <div class="status-box">
+          <div>MEM: 64MB OK</div>
+          <div>CPU: 100%</div>
+          <div id="clock">00:00:00</div>
+          <div class="ai-toggle" id="ai-toggle" style="display: none;">
+            <label>
+              <input type="checkbox" id="ai-toggle-switch" checked>
+              <span>AI: ON</span>
+            </label>
+          </div>
+        </div>
+      </aside>
+
+      <main class="main-display" id="content-screen"></main>
+    </div>
+
+    <div class="command-line">
+      <span class="prompt">C:\USERS\GUEST></span>
+      <div class="input-wrapper">
+        <span class="input-sizer">
+          <input
+            type="text"
+            id="cmd-input"
+            autofocus
+            autocomplete="off"
+            spellcheck="false"
+          /><span class="cursor"></span>
+        </span>
+      </div>
+    </div>
+
+<!-- Section Templates -->
+<template id="template-home">
+  <h2>/// SYSTEM READY ///</h2>
+  <p>Welcome to my interactive terminal resume.</p>
+  <p>I am a Senior Software Engineer specializing in scalable architecture, retro-futurism, and clean code.</p>
+  <p style="color: var(--term-dim)">> Collected enough certifications to impress HR bots. Still Googles basic syntax daily. (Microsoft, Scrum Alliance)</p>
+  <br>
+  <p>> Use UP/DOWN arrows to navigate menu.</p>
+  <p>> Press ENTER to open a file.</p>
+  <p>> Click any menu item with your mouse.</p>
+  <p>> Or type commands below (try 'help').</p>
+</template>
+
+<template id="template-experience">
+  <h2>/// EXPERIENCE.LOG ///</h2>
+  <div class="job-entry">
+      <div class="job-title">SENIOR BACKEND ENGINEER <span class="job-date">2021 - PRESENT</span></div>
+      <div>TechCorp Industries</div>
+      <div class="tech-stack">[Go, Kubernetes, gRPC, PostgreSQL]</div>
+      <ul>
+          <li>> Architected microservices reducing latency by 40%.</li>
+          <li>> Led a team of 5 developers through 3 major release cycles.</li>
+          <li>> Optimized database queries saving $10k/mo in cloud costs.</li>
+      </ul>
+  </div>
+
+  <div class="job-entry">
+      <div class="job-title">FULL STACK DEVELOPER <span class="job-date">2018 - 2021</span></div>
+      <div>Startup.io</div>
+      <div class="tech-stack">[React, Node.js, AWS, MongoDB]</div>
+      <ul>
+          <li>> Built the MVP from scratch in 3 months.</li>
+          <li>> Implemented CI/CD pipelines achieving 99.9% uptime.</li>
+      </ul>
+  </div>
+
+  <div class="job-entry">
+      <div class="job-title">FULL STACK DEVELOPER <span class="job-date">2018 - 2021</span></div>
+      <div>Startup.io</div>
+      <div class="tech-stack">[React, Node.js, AWS, MongoDB]</div>
+      <ul>
+          <li>> Built the MVP from scratch in 3 months.</li>
+          <li>> Implemented CI/CD pipelines achieving 99.9% uptime.</li>
+      </ul>
+  </div>
+
+  <div class="job-entry">
+      <div class="job-title">FULL STACK DEVELOPER <span class="job-date">2018 - 2021</span></div>
+      <div>Startup.io</div>
+      <div class="tech-stack">[React, Node.js, AWS, MongoDB]</div>
+      <ul>
+          <li>> Built the MVP from scratch in 3 months.</li>
+          <li>> Implemented CI/CD pipelines achieving 99.9% uptime.</li>
+      </ul>
+  </div>
+
+  <div class="job-entry">
+      <div class="job-title">FULL STACK DEVELOPER <span class="job-date">2018 - 2021</span></div>
+      <div>Startup.io</div>
+      <div class="tech-stack">[React, Node.js, AWS, MongoDB]</div>
+      <ul>
+          <li>> Built the MVP from scratch in 3 months.</li>
+          <li>> Implemented CI/CD pipelines achieving 99.9% uptime.</li>
+      </ul>
+  </div>
+</template>
+
+<template id="template-skills">
+  <h2>/// SKILLS.DAT ///</h2>
+  <p>LOADING MODULES...</p>
+  <br>
+  <div>[■■■■■■■■■■] 100% JavaScript/TypeScript</div>
+  <div>[■■■■■■■■■□]  90% Python/Django</div>
+  <div>[■■■■■■■■□□]  80% Docker/K8s</div>
+  <div>[■■■■■■□□□□]  60% Rust (Learning...)</div>
+  <br>
+  <p>> PREFERRED WEAPONS:</p>
+  <p>  VS Code, Vim, Linux, Caffeine</p>
+</template>
+
+<template id="template-projects">
+  <h2>/// PROJECTS.DIR ///</h2>
+
+  <div class="job-entry">
+      <div class="project-header">
+          <div class="project-info">
+              <div class="job-title">DLCTXX_CLONE</div>
+              <div class="tech-stack">STATUS: COMPLETED</div>
+          </div>
+          <div class="score-circles">
+              <div class="score-circle score-high" data-score="100">
+                  <svg viewBox="0 0 48 48">
+                      <circle class="circle-bg" cx="24" cy="24" r="22"/>
+                      <circle class="circle-progress" cx="24" cy="24" r="22"/>
+                  </svg>
+                  <span class="score-value">100</span>
+                  <span class="score-label">PERF</span>
+              </div>
+              <div class="score-circle score-high" data-score="98">
+                  <svg viewBox="0 0 48 48">
+                      <circle class="circle-bg" cx="24" cy="24" r="22"/>
+                      <circle class="circle-progress" cx="24" cy="24" r="22"/>
+                  </svg>
+                  <span class="score-value">98</span>
+                  <span class="score-label">A11Y</span>
+              </div>
+              <div class="score-circle score-high" data-score="100">
+                  <svg viewBox="0 0 48 48">
+                      <circle class="circle-bg" cx="24" cy="24" r="22"/>
+                      <circle class="circle-progress" cx="24" cy="24" r="22"/>
+                  </svg>
+                  <span class="score-value">100</span>
+                  <span class="score-label">SEO</span>
+              </div>
+          </div>
+      </div>
+      <p>A retro terminal interface for web portfolios using raw HTML/CSS/JS. No frameworks attached.</p>
+  </div>
+
+  <div class="job-entry">
+      <div class="project-header">
+          <div class="project-info">
+              <div class="job-title">AUTO-TRADER BOT</div>
+              <div class="tech-stack">STATUS: RUNNING</div>
+          </div>
+          <div class="score-circles">
+              <div class="score-circle score-high" data-score="94">
+                  <svg viewBox="0 0 48 48">
+                      <circle class="circle-bg" cx="24" cy="24" r="22"/>
+                      <circle class="circle-progress" cx="24" cy="24" r="22"/>
+                  </svg>
+                  <span class="score-value">94</span>
+                  <span class="score-label">CODE</span>
+              </div>
+              <div class="score-circle score-medium" data-score="78">
+                  <svg viewBox="0 0 48 48">
+                      <circle class="circle-bg" cx="24" cy="24" r="22"/>
+                      <circle class="circle-progress" cx="24" cy="24" r="22"/>
+                  </svg>
+                  <span class="score-value">78</span>
+                  <span class="score-label">STBL</span>
+              </div>
+              <div class="score-circle score-high" data-score="89">
+                  <svg viewBox="0 0 48 48">
+                      <circle class="circle-bg" cx="24" cy="24" r="22"/>
+                      <circle class="circle-progress" cx="24" cy="24" r="22"/>
+                  </svg>
+                  <span class="score-value">89</span>
+                  <span class="score-label">ROI</span>
+              </div>
+          </div>
+      </div>
+      <p>Python script using Pandas and Alpaca API to trade crypto based on sentiment analysis.</p>
+  </div>
+</template>
+
+<template id="template-contact">
+  <h2>/// CONTACT.TXT ///</h2>
+  <p>ESTABLISHING CONNECTION...</p>
+  <br>
+  <div class="contact-row">
+    <span>> EMAIL:</span>
+    <a href="mailto:marcingolenia@gmail.com" class="contact-link">marcingolenia@gmail.com</a>
+    <button class="copy-btn" data-copy="marcingolenia@gmail.com">[ COPY ]</button>
+  </div>
+  <div class="contact-row">
+    <span>> GITHUB:</span>
+    <a href="https://github.com/marcingolenia" target="_blank" class="contact-link">github.com/marcingolenia</a>
+    <button class="copy-btn" data-copy="https://github.com/marcingolenia">[ COPY ]</button>
+  </div>
+  <div class="contact-row">
+    <span>> LINKEDIN:</span>
+    <a href="https://www.linkedin.com/in/marcin-golenia-228359183/" target="_blank" class="contact-link">linkedin.com/in/marcin-golenia</a>
+    <button class="copy-btn" data-copy="https://www.linkedin.com/in/marcin-golenia-228359183/">[ COPY ]</button>
+  </div>
+  <br>
+  <p>> LOCATION:</p>
+  <div class="map-container" style="display: flex; align-items: center; gap: 20px; margin: 15px 0;">
+    <div style="position: relative; width: 200px; height: 150px;">
+      <img src="poland.png" alt="Poland" class="poland-map">
+      <svg style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;" viewBox="0 0 140 120">
+        <circle cx="85" cy="55" r="5" fill="var(--term-green)" style="filter: drop-shadow(0 0 8px var(--term-green));">
+          <animate attributeName="r" values="4;6;4" dur="2s" repeatCount="indefinite"/>
+        </circle>
+        <circle cx="85" cy="55" r="8" fill="none" stroke="var(--term-green)" stroke-width="1" opacity="0">
+          <animate attributeName="r" values="6;25;25" dur="2.5s" repeatCount="indefinite"/>
+          <animate attributeName="opacity" values="0.6;0;0" dur="2.5s" repeatCount="indefinite"/>
+        </circle>
+      </svg>
+    </div>
+    <div style="color: var(--term-dim); font-size: 0.9em;">
+      <p style="margin: 5px 0; color: var(--term-light);">WARSAW, POLAND</p>
+      <p style="margin: 5px 0;">> LAT: 52.23°N</p>
+      <p style="margin: 5px 0;">> LON: 21.01°E</p>
+      <p style="margin: 5px 0;">> TIME: <span id="warsaw-clock" style="color: var(--term-light);">--:--:--</span> CET</p>
+      <p style="margin: 5px 0;">> <span style="color: var(--term-green);">● ONLINE</span></p>
+    </div>
+  </div>
+  <br>
+  <p>ENCRYPTION KEY: PGP-4096-RSA [VALID]</p>
+</template>
+
+<template id="template-download">
+  <h2>/// PDF EXPORT ///</h2>
+  <p>EXPORT SYSTEM READY</p>
+  <br>
+  <p>> This will generate a PDF version of your resume.</p>
+  <p>> The print dialog will open - select "Save as PDF".</p>
+  <br>
+  <button id="start-download" class="download-btn">[ EXECUTE DOWNLOAD.EXE ]</button>
+  <br><br>
+  <div id="download-progress"></div>
+</template>
+
+<template id="template-snake">
+  <h2>/// SNAKE.EXE ///</h2>
+  <p>USE ARROW KEYS TO MOVE</p>
+  <p>PRESS ESC TO EXIT</p>
+  <br>
+  <canvas id="snake-game" width="400" height="300" style="border: 2px solid var(--term-green); background: #000;"></canvas>
+  <p id="snake-score" style="margin-top: 10px;">SCORE: 0</p>
+</template>
+
+    <!-- JavaScript Files (order matters - dependencies first) -->
+    <script src="js/audio.js"></script>
+    <script src="js/themes.js"></script>
+    <script src="js/content.js"></script>
+    <script src="js/boot.js"></script>
+    <script src="js/ai.js"></script>
+    <script src="js/pdf.js"></script>
+    <script src="js/navigation.js"></script>
+    <script src="js/commands.js"></script>
+    <script src="js/snake.js"></script>
+    <script src="js/main.js"></script>
+  </body>
+</html>

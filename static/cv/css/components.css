@@ -1,0 +1,187 @@
+.job-entry {
+  margin-bottom: 25px;
+}
+
+.job-title {
+  font-weight: bold;
+  font-size: 1.2em;
+}
+
+.job-date {
+  float: right;
+  opacity: 0.8;
+}
+
+.tech-stack {
+  color: var(--term-light);
+  font-size: 0.9rem;
+  margin-top: 5px;
+}
+
+/* --- Contact Section --- */
+.contact-row {
+  margin-bottom: 8px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.contact-link {
+  color: var(--term-light);
+  text-decoration: none;
+  transition: all 0.1s;
+}
+
+.contact-link:hover {
+  color: #fff;
+  text-shadow: var(--term-glow);
+}
+
+.copy-btn {
+  background: transparent;
+  border: 1px solid var(--term-dim);
+  color: var(--term-dim);
+  font-family: "VT323", monospace;
+  font-size: 0.8em;
+  padding: 2px 8px;
+  cursor: pointer;
+  transition: all 0.1s;
+}
+
+.copy-btn:hover {
+  border-color: var(--term-green);
+  color: var(--term-green);
+}
+
+.copy-btn.copied {
+  border-color: var(--term-light);
+  color: var(--term-light);
+}
+
+/* --- Poland Map --- */
+.poland-map {
+  width: 100%;
+  filter: 
+    opacity(0.8)
+    drop-shadow(0px 0 1px var(--term-dim))
+    drop-shadow(0px 0 5px var(--term-dim));
+  mix-blend-mode: lighten;
+}
+
+/* --- Lighthouse-style Score Circles --- */
+.project-header {
+  display: flex;
+  align-items: flex-start;
+  gap: 20px;
+  margin-bottom: 10px;
+}
+
+.project-info {
+  flex: 1;
+}
+
+.score-circles {
+  display: flex;
+  gap: 12px;
+  flex-shrink: 0;
+}
+
+.score-circle {
+  position: relative;
+  width: 56px;
+  height: 56px;
+}
+
+.score-circle svg {
+  transform: rotate(-90deg);
+  width: 56px;
+  height: 56px;
+}
+
+.score-circle .circle-bg {
+  fill: none;
+  stroke: var(--term-dim);
+  stroke-width: 4;
+}
+
+.score-circle .circle-progress {
+  fill: none;
+  stroke: var(--term-green);
+  stroke-width: 4;
+  stroke-linecap: round;
+  stroke-dasharray: 138.23;
+  stroke-dashoffset: 138.23;
+  transition: stroke-dashoffset 1s ease-out;
+  filter: drop-shadow(0 0 4px rgba(var(--term-rgb), 0.6));
+}
+
+.score-circle.score-high .circle-progress {
+  stroke: var(--term-green);
+}
+
+.score-circle.score-medium .circle-progress {
+  stroke: #ffaa00;
+  filter: drop-shadow(0 0 4px rgba(255, 170, 0, 0.6));
+}
+
+.score-circle.score-low .circle-progress {
+  stroke: #ff4444;
+  filter: drop-shadow(0 0 4px rgba(255, 68, 68, 0.6));
+}
+
+.score-value {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 16px;
+  font-weight: bold;
+  color: var(--term-green);
+  text-shadow: 0 0 6px rgba(var(--term-rgb), 0.8);
+}
+
+.score-circle.score-medium .score-value {
+  color: #ffaa00;
+  text-shadow: 0 0 6px rgba(255, 170, 0, 0.8);
+}
+
+.score-circle.score-low .score-value {
+  color: #ff4444;
+  text-shadow: 0 0 6px rgba(255, 68, 68, 0.8);
+}
+
+.score-label {
+  position: absolute;
+  bottom: -18px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 10px;
+  color: var(--term-light);
+  white-space: nowrap;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+/* --- Download Button --- */
+.download-btn {
+  background: transparent;
+  border: 2px solid var(--term-green);
+  color: var(--term-green);
+  font-family: "VT323", monospace;
+  font-size: 1.2em;
+  padding: 10px 20px;
+  cursor: pointer;
+  transition: all 0.1s;
+}
+
+.download-btn:hover {
+  background: var(--term-green);
+  color: var(--bg-color);
+  box-shadow: var(--term-glow);
+}
+
+.download-btn:active {
+  transform: scale(0.98);
+}
+

@@ -1,0 +1,70 @@
+/* Print Styles for PDF Export */
+@media print {
+  @page {
+    margin: 15mm;
+    size: auto;
+    background: #0d0d0d !important;
+  }
+
+  * {
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+  }
+
+  html,
+  body {
+    margin: 0 !important;
+    padding: 0 !important;
+    height: auto;
+    overflow: visible;
+    background: #0d0d0d !important;
+    /* Disable CRT animations */
+    animation: none !important;
+  }
+
+  /* Hide CRT effects (pseudo-elements) */
+  body::before,
+  body::after {
+    display: none !important;
+  }
+
+  /* Hide interactive elements */
+  .command-line,
+  .sidebar,
+  .vhs-tracking,
+  #download-progress,
+  .download-btn,
+  .boot-screen {
+    display: none !important;
+  }
+
+  .layout {
+    display: block;
+    border: none !important;
+    border-radius: 0 !important;
+    box-shadow: none !important;
+    background: transparent !important;
+    margin: 0 !important;
+    padding: 0 !important;
+  }
+
+  .main-display {
+    border: none !important;
+    border-radius: 0 !important;
+    overflow: visible;
+    padding: 0;
+    margin: 0;
+    background: transparent !important;
+  }
+
+  /* Clean up job entries for print */
+  .job-entry {
+    break-inside: avoid;
+    page-break-inside: avoid;
+  }
+
+  h2 {
+    break-after: avoid;
+    page-break-after: avoid;
+  }
+}

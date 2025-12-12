@@ -13,10 +13,9 @@ outputs:
     - "HTML"
     - "RSS"
 
-Paginate: 6
+Pagination:
+  pagerSize: 6
 enableRobotsTXT: true
-# disqusShortname: your-disqus-shortname
-# googleAnalytics: G-MEASUREMENT_ID
 
 markup:
   highlight:
@@ -40,6 +39,11 @@ Menus:
       title: Blog posts
       url: /blog
       weight: 1
+    - identifier: cv
+      name: CV
+      title: Curriculum Vitae
+      url: /cv/cv.html
+      weight: 2
     # - identifier: gallery
     #   name: Gallery
     #   title: Blog posts

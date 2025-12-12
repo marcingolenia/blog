@@ -1,0 +1,35 @@
+/* --- CSS Variables & Theme Definitions --- */
+:root {
+  --bg-color: #0d0d0d;
+  --term-green: #4af626;
+  --term-dim: #1f6b12;
+  --term-light: #88ff88;
+  --term-rgb: 74, 246, 38;
+  --term-glow: 0 0 10px rgba(var(--term-rgb), 0.5);
+}
+
+/* --- Phosphor Color Themes --- */
+body.theme-green {
+  --term-green: #4af626;
+  --term-dim: #1f6b12;
+  --term-light: #88ff88;
+  --term-rgb: 74, 246, 38;
+  --term-glow: 0 0 10px rgba(var(--term-rgb), 0.5);
+}
+
+body.theme-amber {
+  --term-green: #ffb000;
+  --term-dim: #8b5a00;
+  --term-light: #ffd966;
+  --term-rgb: 255, 176, 0;
+  --term-glow: 0 0 10px rgba(var(--term-rgb), 0.5);
+}
+
+body.theme-white {
+  --term-green: #e0e0e0;
+  --term-dim: #606060;
+  --term-light: #ffffff;
+  --term-rgb: 224, 224, 224;
+  --term-glow: 0 0 10px rgba(var(--term-rgb), 0.4);
+}
+

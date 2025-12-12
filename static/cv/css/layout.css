@@ -1,0 +1,142 @@
+/* --- Base Body Styles --- */
+body {
+  margin: 0;
+  background-color: var(--bg-color);
+  color: var(--term-green);
+  font-family: "VT323", monospace;
+  font-size: 22px;
+  overflow: hidden;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  animation: crtFlicker 5s infinite, crtSkew 5s infinite;
+}
+
+/* --- Main Layout --- */
+.layout {
+  display: flex;
+  flex: 1;
+  min-height: 0;
+  padding: 20px;
+  gap: 20px;
+  border: 2px solid var(--term-green);
+  margin: 10px;
+  border-radius: 18px;
+  box-shadow: var(--term-glow), inset 0 0 60px rgba(var(--term-rgb), 0.03);
+  overflow: hidden;
+}
+
+/* --- Sidebar (Menu) --- */
+.sidebar {
+  width: 250px;
+  border-right: 2px dashed var(--term-dim);
+  padding-right: 15px;
+  display: flex;
+  flex-direction: column;
+  border-radius: 6px 0 0 6px;
+}
+
+.header {
+  border-bottom: 2px solid var(--term-green);
+  margin-bottom: 20px;
+  padding-bottom: 5px;
+}
+
+.header h1 {
+  margin: 0;
+  font-size: 1.5em;
+  text-shadow: var(--term-glow);
+}
+
+.menu-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.menu-item {
+  padding: 5px 10px;
+  margin-bottom: 5px;
+  cursor: pointer;
+}
+
+.menu-item.active {
+  background-color: var(--term-green);
+  color: var(--bg-color);
+  font-weight: bold;
+}
+
+.status-box {
+  margin-top: auto;
+  border: 1px solid var(--term-dim);
+  padding: 10px;
+  font-size: 0.8em;
+}
+
+.ai-toggle {
+  margin-top: 8px;
+  padding-top: 8px;
+  border-top: 1px solid var(--term-dim);
+}
+
+.ai-toggle label {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+  user-select: none;
+}
+
+.ai-toggle input[type="checkbox"] {
+  cursor: pointer;
+  width: 16px;
+  height: 16px;
+  accent-color: var(--term-green);
+}
+
+.ai-toggle span {
+  color: var(--term-light);
+  font-size: 0.9em;
+}
+
+/* --- Main Content Area --- */
+.main-display {
+  flex: 1;
+  min-height: 0;
+  padding: 10px;
+  overflow-y: auto;
+  border: 1px solid var(--term-dim);
+  border-radius: 6px;
+}
+
+/* Custom Scrollbar for Webkit */
+.main-display::-webkit-scrollbar {
+  width: 12px;
+}
+.main-display::-webkit-scrollbar-track {
+  background: #000;
+  border-left: 1px dashed var(--term-green);
+}
+.main-display::-webkit-scrollbar-thumb {
+  background-color: var(--term-green);
+  border: 2px solid #000;
+}
+
+h2 {
+  border-bottom: 1px dashed var(--term-green);
+  padding-bottom: 5px;
+}
+
+/* Mobile Adjustments */
+@media (max-width: 768px) {
+  .layout {
+    flex-direction: column;
+    overflow-y: auto;
+  }
+  .sidebar {
+    width: 100%;
+    border-right: none;
+    border-bottom: 2px dashed var(--term-dim);
+  }
+}
+

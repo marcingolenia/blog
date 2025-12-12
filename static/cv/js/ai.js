@@ -1,7 +1,7 @@
 // --- CHROME LOCAL AI (Prompt API) ---
 let aiSession = null;
 let aiAvailability = null;
-let aiEnabled = true; // AI is enabled by default if available
+let aiEnabled = false; // AI is enabled by default if available
 
 // Helper to check if AI is potentially available
 function isAIAvailable() {

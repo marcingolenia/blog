@@ -184,6 +184,13 @@ async function askAI(question) {
 async function handleAIQuery(query) {
   const contentScreen = document.getElementById("content-screen");
   
+  // Clear input before processing
+  const cmdInput = document.getElementById("cmd-input");
+  if (cmdInput) {
+    cmdInput.value = "";
+    if (typeof resizeInput === 'function') resizeInput();
+  }
+  
   // Show thinking indicator
   contentScreen.innerHTML += `
     <br>
@@ -335,7 +342,7 @@ function showToolCallConfirmation(toolCalls) {
       <p style="color: #ffb000; margin-bottom: 8px;">> TOOL EXECUTION REQUEST:</p>
       ${callsList}
       <p style="color: var(--term-dim); margin-top: 8px; font-size: 0.9em;">
-        Press ENTER to execute, ESC to cancel
+        Type 'y' and press ENTER to execute, ESC to cancel
       </p>
     `;
     contentScreen.appendChild(confirmationEl);
@@ -350,16 +357,33 @@ function showToolCallConfirmation(toolCalls) {
       if (resolved || !confirmationEl.parentNode) return;
       
       if (e.key === 'Enter') {
-        e.preventDefault();
-        e.stopPropagation();
-        resolved = true;
-        confirmationEl.remove();
-        document.removeEventListener('keydown', handleKeyPress);
-        resolve(true);
+        const inputValue = cmdInput.value.trim().toLowerCase();
+        if (inputValue === 'y') {
+          e.preventDefault();
+          e.stopPropagation();
+          resolved = true;
+          cmdInput.value = "";
+          if (typeof resizeInput === 'function') resizeInput();
+          confirmationEl.remove();
+          document.removeEventListener('keydown', handleKeyPress);
+          resolve(true);
+        } else if (inputValue !== '') {
+          // User typed something other than 'y', treat as cancel
+          e.preventDefault();
+          e.stopPropagation();
+          resolved = true;
+          cmdInput.value = "";
+          if (typeof resizeInput === 'function') resizeInput();
+          confirmationEl.remove();
+          document.removeEventListener('keydown', handleKeyPress);
+          resolve(false);
+        }
       } else if (e.key === 'Escape') {
         e.preventDefault();
         e.stopPropagation();
         resolved = true;
+        cmdInput.value = "";
+        if (typeof resizeInput === 'function') resizeInput();
         confirmationEl.remove();
         document.removeEventListener('keydown', handleKeyPress);
         resolve(false);

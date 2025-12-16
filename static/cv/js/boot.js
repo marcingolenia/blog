@@ -1,4 +1,3 @@
-// --- BOOT SEQUENCE ---
 const bootMessages = [
   { text: "MARCIN_BIOS v4.20.69", delay: 100, beep: true },
   { text: "Copyright (C) 1989-2025 Marcin Industries", delay: 50 },
@@ -45,7 +44,6 @@ async function runBootSequence() {
     if (msg.text === "") {
       fullText += "\n";
     } else if (msg.text.startsWith("█")) {
-      // Progress bar - replace last line
       const lines = fullText.split("\n");
       if (lines[lines.length - 1].startsWith("█")) {
         lines[lines.length - 1] = msg.text;

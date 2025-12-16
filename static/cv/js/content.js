@@ -4,7 +4,6 @@ const sections = ["home", "experience", "skills", "projects", "contact", "downlo
 function loadContent(key) {
   const contentScreen = document.getElementById("content-screen");
   
-  // Stop snake game if running
   if (typeof stopSnakeGame === "function") {
     stopSnakeGame();
   }

@@ -44,7 +44,7 @@ function startPdfDownload() {
   setTimeout(() => {
     html += `<br><p style="color: var(--term-green); font-size: 1.2em">████████████████████████████████ 100%</p>\n`;
     html += `<br><p>═══════════════════════════════════════════</p>`;
-    html += `<p style="color: white">DOWNLOAD COMPLETE!</p>`;
+    html += `<p style="color: var(--term-green)">DOWNLOAD COMPLETE!</p>`;
     html += `<p>═══════════════════════════════════════════</p>`;
     html += `<br><p>> Opening print dialog...</p>`;
     html += `<p style="color: var(--term-light)">> Select "Save as PDF" to download.</p>`;

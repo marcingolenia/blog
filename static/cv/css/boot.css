@@ -19,15 +19,3 @@
   white-space: pre-wrap;
   line-height: 1.4;
 }
-
-.sound-hint {
-  position: fixed;
-  bottom: 40px;
-  left: 50%;
-  transform: translateX(-50%);
-  color: var(--term-dim);
-  font-size: 0.9em;
-  animation: blink 1.5s step-end infinite;
-  opacity: 0.8;
-}
-

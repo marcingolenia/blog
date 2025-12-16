@@ -99,7 +99,6 @@ body {
   font-size: 0.9em;
 }
 
-/* --- Main Content Area --- */
 .main-display {
   flex: 1;
   min-height: 0;
@@ -109,7 +108,7 @@ body {
   border-radius: 6px;
 }
 
-/* Custom Scrollbar for Webkit */
+
 .main-display::-webkit-scrollbar {
   width: 12px;
 }
@@ -127,7 +126,7 @@ h2 {
   padding-bottom: 5px;
 }
 
-/* Mobile Adjustments */
+/* Mobile */
 @media (max-width: 768px) {
   .layout {
     flex-direction: column;

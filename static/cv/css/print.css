@@ -3,7 +3,7 @@
   @page {
     margin: 15mm;
     size: auto;
-    background: #0d0d0d !important;
+    background: var(--bg-color) !important;
   }
 
   * {
@@ -13,19 +13,10 @@
 
   html,
   body {
-    margin: 0 !important;
-    padding: 0 !important;
     height: auto;
     overflow: visible;
-    background: #0d0d0d !important;
     /* Disable CRT animations */
     animation: none !important;
-  }
-
-  /* Hide CRT effects (pseudo-elements) */
-  body::before,
-  body::after {
-    display: none !important;
   }
 
   /* Hide interactive elements */

@@ -86,8 +86,7 @@ body::before {
     rgba(0, 0, 0, 0.3) 2px
   );
   pointer-events: none;
-  z-index: 997;
-  opacity: 0.3;
+  opacity: .5;
 }
 
 /* --- VHS Tracking Lines --- */

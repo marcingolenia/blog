@@ -77,7 +77,7 @@ function generatePrintableCV() {
     <div class="print-header" style="text-align: center; margin-bottom: 30px;">
       <h1 style="font-size: 2em; margin: 0;">MARCIN GOLENIA</h1>
       <p style="color: var(--term-light);">Tech Lead / Staff Software Engineer</p>
-      <p style="font-size: 0.9em; color: #888;">marcingolenia@gmail.com | github.com/marcingolenia | linkedin.com/in/marcin-golenia-228359183/</p>
+      <p style="font-size: 0.9em; color: #888;">marcingolenia@gmail.com | +48 726 746 750</p>
     </div>
     ${profile}
     ${work}

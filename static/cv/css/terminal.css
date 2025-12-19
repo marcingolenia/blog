@@ -53,3 +53,15 @@
   }
 }
 
+@media (max-width: 768px) {
+  .command-line {
+    display: none;
+  }
+}
+
+@media (max-width: 900px) and (orientation: landscape) {
+  .command-line {
+    display: none;
+  }
+}
+

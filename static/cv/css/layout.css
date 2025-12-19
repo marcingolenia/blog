@@ -40,6 +40,9 @@ body {
   border-bottom: 2px solid var(--term-green);
   margin-bottom: 20px;
   padding-bottom: 5px;
+  display: flex;
+  align-items: end;
+  gap: .5em;
 }
 
 .header h1 {
@@ -136,6 +139,9 @@ h2 {
     width: 100%;
     border-right: none;
     border-bottom: 2px dashed var(--term-dim);
+  }
+  .status-box {
+    display: none;
   }
 }
 

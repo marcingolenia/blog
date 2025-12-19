@@ -52,7 +52,6 @@
     background: transparent !important;
   }
 
-  /* Clean up job entries for print */
   .job-entry {
     break-inside: avoid;
     page-break-inside: avoid;
@@ -61,5 +60,34 @@
   h2 {
     break-after: avoid;
     page-break-after: avoid;
+  }
+}
+
+@-moz-document url-prefix() {
+  @media print {
+    @page {
+      background: white !important;
+    }
+
+    html,
+    body {
+      background: white !important;
+      color: black !important;
+    }
+    body::after {
+      display: none !important;
+    }
+    body::before {
+      display: none !important;
+    }
+
+    * {
+      color: black !important;
+    }
+
+    /* Preserve some colors for readability if needed */
+    a {
+      color: #0066cc !important;
+    }
   }
 }

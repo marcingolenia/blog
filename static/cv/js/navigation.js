@@ -1,6 +1,13 @@
 const menuItems = document.querySelectorAll(".menu-item");
 let currentIndex = 0;
 
+function focusCommandInputIfVisible() {
+  const cmdInput = document.getElementById("cmd-input");
+  if (cmdInput && cmdInput.offsetParent !== null) {
+    cmdInput.focus();
+  }
+}
+
 function updateMenu() {
   menuItems.forEach((item, i) => {
     item.classList.toggle("active", i === currentIndex);
@@ -51,7 +58,7 @@ document.addEventListener("keydown", (e) => {
     updateMenu();
     e.preventDefault();
   } else if (e.key === "Enter") {
-    if (document.activeElement === cmdInput && cmdInput.value.trim() !== "") {
+    if (cmdInput && document.activeElement === cmdInput && cmdInput.value.trim() !== "") {
       processCommand(cmdInput.value.trim());
     } else {
       triggerSelection();
@@ -67,21 +74,19 @@ document.addEventListener("keydown", (e) => {
 
 menuItems.forEach((item, index) => {
   item.addEventListener("click", (e) => {
-    const cmdInput = document.getElementById("cmd-input");
     e.stopPropagation();
     currentIndex = index;
     updateMenu();
     triggerSelection();
-    cmdInput.focus();
+    focusCommandInputIfVisible();
   });
 });
 
 document.addEventListener("click", (e) => {
-  const cmdInput = document.getElementById("cmd-input");
   const selection = window.getSelection();
   const hasSelection = selection && selection.toString().length > 0;
   if (!hasSelection) {
-    cmdInput.focus();
+    focusCommandInputIfVisible();
   }
 });
 

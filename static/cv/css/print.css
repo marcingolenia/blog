@@ -29,6 +29,10 @@
     display: none !important;
   }
 
+  .pdf-hide {
+    display: none !important;
+  }
+
   .layout {
     display: block;
     border: none !important;

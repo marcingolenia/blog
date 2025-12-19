@@ -41,8 +41,8 @@
         <ul class="menu-list">
           <li class="menu-item active" data-target="home">01_HOME.BAT</li>
           <li class="menu-item" data-target="profile">02_PROFILE.DAT</li>
-          <li class="menu-item" data-target="experience">03_EXPERIENCE.LOG</li>
-          <li class="menu-item" data-target="projects">04_PROJECTS.DIR</li>
+          <li class="menu-item" data-target="experience">03_PROFESSIONAL_WORK.LOG</li>
+          <li class="menu-item" data-target="projects">04_OTHER_WORK.LOG</li>
           <li class="menu-item" data-target="contact">05_CONTACT.TXT</li>
           <li class="menu-item" data-target="download">06_DOWNLOAD.PDF</li>
         </ul>
@@ -86,104 +86,146 @@
   <p>> Or type commands below (try 'help').</p>
 </template>
 
-<template id="template-experience">
-  <h2>/// EXPERIENCE.LOG ///</h2>
-  <div class="job-entry">
-      <div class="job-title">SENIOR BACKEND ENGINEER <span class="job-date">2021 - PRESENT</span></div>
-      <div>TechCorp Industries</div>
-      <div class="tech-stack">[Go, Kubernetes, gRPC, PostgreSQL]</div>
-      <ul>
-          <li>> Architected microservices reducing latency by 40%.</li>
-          <li>> Led a team of 5 developers through 3 major release cycles.</li>
-          <li>> Optimized database queries saving $10k/mo in cloud costs.</li>
-      </ul>
-  </div>
-
-  <div class="job-entry">
-      <div class="job-title">FULL STACK DEVELOPER <span class="job-date">2018 - 2021</span></div>
-      <div>Startup.io</div>
-      <div class="tech-stack">[React, Node.js, AWS, MongoDB]</div>
-      <ul>
-          <li>> Built the MVP from scratch in 3 months.</li>
-          <li>> Implemented CI/CD pipelines achieving 99.9% uptime.</li>
-      </ul>
-  </div>
-
-  <div class="job-entry">
-      <div class="job-title">FULL STACK DEVELOPER <span class="job-date">2018 - 2021</span></div>
-      <div>Startup.io</div>
-      <div class="tech-stack">[React, Node.js, AWS, MongoDB]</div>
-      <ul>
-          <li>> Built the MVP from scratch in 3 months.</li>
-          <li>> Implemented CI/CD pipelines achieving 99.9% uptime.</li>
-      </ul>
-  </div>
-
-  <div class="job-entry">
-      <div class="job-title">FULL STACK DEVELOPER <span class="job-date">2018 - 2021</span></div>
-      <div>Startup.io</div>
-      <div class="tech-stack">[React, Node.js, AWS, MongoDB]</div>
-      <ul>
-          <li>> Built the MVP from scratch in 3 months.</li>
-          <li>> Implemented CI/CD pipelines achieving 99.9% uptime.</li>
-      </ul>
-  </div>
-
-  <div class="job-entry">
-      <div class="job-title">FULL STACK DEVELOPER <span class="job-date">2018 - 2021</span></div>
-      <div>Startup.io</div>
-      <div class="tech-stack">[React, Node.js, AWS, MongoDB]</div>
-      <ul>
-          <li>> Built the MVP from scratch in 3 months.</li>
-          <li>> Implemented CI/CD pipelines achieving 99.9% uptime.</li>
-      </ul>
-  </div>
-</template>
-
 <template id="template-profile">
   <h2>/// PROFILE.DAT ///</h2>
-  <h1>MARCIN GOLENIA <small style="font-size: 0.5em;">Tech Lead / Staff Software Engineer</small></h1>
-  <p>13+ years · Product-minded engineer · Platform & team leverage</p>
-  <h3>PROFILE</h3>
+  <h1 class="pdf-hide">MARCIN GOLENIA <small style="font-size: 0.5em;">Tech Lead / Staff Software Engineer</small></h1>
+  <p>13+ years of experience· Product-minded engineer · Platform & team leverage · Collected enough certifications to impress HR bots · Still Googles basic syntax daily</p>
   <p>I operate at the intersection of engineering, product, and people — turning unclear problems into simple, working solutions.</p>
-  <p>Time is life. I help regain both.</p>
   <h3>OPERATING PRINCIPLES</h3>
-  <ul style="list-style: none; padding-left: 0;">
-    <li>> Fight inefficiency disguised as activity</li>
-    <li>> Prefer simplicity over cleverness</li>
-    <li>> Optimize for learning speed, not premature scale</li>
-    <li>> Engineers should know their users</li>
-    <li>> Psychological safety enables technical excellence</li>
-    <li>> Good tooling and DevEx are force multipliers</li>
-    <li>> If something hurts repeatedly, fix the system, not the people</li>
+  <ul>
+    <li>Fight inefficiency disguised as activity</li>
+    <li>Prefer simplicity over cleverness</li>
+    <li>Optimize for learning speed, not premature scale</li>
+    <li>Engineers should know their users</li>
+    <li>Psychological safety enables technical excellence</li>
+    <li>Good tooling and DevEx are force multipliers</li>
+    <li>If something hurts repeatedly, fix the system, not the people</li>
+  </ul>
+  <h3>Me & Hobby</h3>
+  Being a dad, husband, software engineer and an owner of 2 cats leaves little time for hobbies. But I do enjoy:
+  <ul>
+    <li>Reading books</li>
+    <li>Writing blog posts</li>
+    <li>Coding small projects and learning new technologies</li>
+    <li>Playing video games</li>
+    <li>Going for a walk or running</li>
   </ul>
 </template>
 
-<template id="template-projects">
-  <h2>/// PROJECTS.DIR ///</h2>
+<template id="template-work">
+  <h2>/// PROFESSIONAL_WORK.LOG ///</h2>
+  
+  <div class="job-entry">
+      <div class="job-title">SNOWFLAKE <span class="job-date">03.2024 – present</span></div>
+      <div>Senior Software Engineer — SnowCommand</div>
+      <div class="tech-stack">Internal platform used across Snowflake to manage customer accounts, security, and communications. Senior IC environment (9 engineers across 3 teams) with work driven by written design and cross-org consensus.</div>
+      <ul>
+        <li>
+          <strong>Owned and delivered Targeted Communications</strong>, a large-scale customer email system for incidents, breaking changes, and driver updates.
+          Authored the PRD during PM absence, aligned Legal, Support, Security, and Engineering, prepared technical design, and implemented with 3 engineers.
+          Replaced fragmented tooling (Marketo + ad-hoc workflows) with a compliant, centralized solution based on Amazon SES.
+          Reduced operational risk in regulated environments, including FedRAMP High.
+        </li>
+        <li>
+          <strong>Designed and implemented a standardized error-handling architecture</strong> across SnowCommand.
+          Based on RFC 9457; introduced consistent error codes, documentation, and structured problem details.
+          Reduced error-handling code by ~30% (~1,100 LOC) while improving clarity and self-service.
+          Cut troubleshooting time and on-call escalations by ~20%.
+          Made a conscious trade-off between security and usability to support internal users without leaking sensitive data.
+        </li>
+        <li>
+          <strong>Raised platform health and developer experience.</strong>
+          Upgraded the stack to ES2022.
+          Acted as caretaker of React, TypeScript, and Node.js versions and security updates.
+          Reviewed technical designs and PRs across teams to ensure architectural consistency.
+        </li>
+        <li>
+          <strong>AI Research and Innovation:</strong>
+          Leading R&D on multi-agent AI systems to enhance on-call troubleshooting by synthesizing data from Slack, codebases, databases, and documentation.
+          Developed demos and knowledge-sharing sessions to prepare the team for AI-assisted root cause analysis and automated resolution suggestions.
+        </li>
+      </ul>
+      <p><strong>Result:</strong> safer customer communication, faster troubleshooting, a modernized stack, and higher leverage for engineers and support teams.</p>
+  </div>
 
   <div class="job-entry">
-      <div class="project-header">
-          <div class="project-info">
-              <div class="job-title">DLCTXX_CLONE</div>
-              <div class="tech-stack">STATUS: COMPLETED</div>
-          </div>
-          <div class="score-circles">
+      <div class="job-title">IGNITE PROCUREMENT <span class="job-date">07.2022 – 03.2024</span></div>
+      <div>Tech Lead</div>
+      <div class="tech-stack">Inherited an unreleased product after ~1 year of development by an external team. The system was tightly coupled, hard to run locally, and had zero tests.</div>
+      <ul>
+          <li>
+            <strong>Unblocked development speed and testability</strong>
+            Introduced MSW, enabling frontend development and testing without backend dependencies.
+            Established TDD practices via workshops; testing became the default instead of an exception.
+            Enabled fast prototyping and safer refactoring.
+          </li>
+          <li>
+            <strong>Improved frontend architecture and usability</strong>
+            Designed intent-based UI components for complex contract workflows.
+            Built a production-grade data grid (filtering, sorting, column config, persistence via URL + local storage) on top of free MUI components.
+          </li>
+          <li>
+            <strong>Strong product judgment</strong>
+            Validated the sourcing MVP with customers, estimated real effort, and killed the product early <strong>based on evidence</strong>.
+            Took ownership of the contracts module and, over ~1 year, doubled adoption through focused scope and usability improvements.
+          </li>
+          <li>
+            <strong>Changed team behavior</strong>
+            Evangelized direct customer contact ("If you know the customer, you're the best person to decide how to help them").
+            Engineers became more willing to talk to users and make product-level decisions.
+          </li>
+      </ul>
+      <p><strong>Result:</strong> a testable, iterable system, faster learning cycles, and engineering effort invested where it actually mattered.</p>
+  </div>
+
+  <div class="job-entry">
+      <div class="job-title">RYDOO <span class="job-date">02.2019 – 02.2021</span></div>
+      <div>Tech Lead</div>
+      <div class="tech-stack">Joined a 6-person team (PM + QA included) after ~2 years of development with no production deployments.</div>
+      <ul>
+          <li>Introduced CI/CD, automated quality gates, code reviews, and pair programming.</li>
+          <li>Built a testing culture from scratch (unit, integration, E2E).</li>
+          <li>Moved the team from zero deploys to <strong>multiple deploys</strong> per week (sometimes daily).</li>
+          <li>Mentored a QA engineer into a developer and helped grow an engineer into a tech lead and later an engineering manager.</li>
+          <li>Enabled Finance to reliably use a complex invoicing system in production.</li>
+      </ul>
+      <p><strong>Result:</strong> a motivated, shipping team with higher quality, faster delivery, and visible progress.</p>
+  </div>
+
+  <div class="job-entry">
+      <div class="job-title">EARLIER EXPERIENCE (COMPRESSED)</div>
+      <div>2012-2019</div>
+      <ul>
+          <li>CyberVadis — Senior Full-Stack Engineer (cybersecurity risk assessment)</li>
+          <li>XML — Tech Lead (employee-of-record platform, event sourcing)</li>
+          <li>7N / Danske Bank — Consultant (CQRS, event-driven systems at scale)</li>
+          <li>PWPW — Tech Lead (digital identity systems used worldwide)</li>
+          <li>Astek / Euvic — Software Engineer (industrial & medical systems)</li>
+      </ul>
+  </div>
+</template>
+
+<template id="template-other-work">
+  <h2>/// OTHER_WORK.LOG ///</h2>
+
+  <div class="job-entry">
+    <div class="job-title">WARSAW FOOD BANK <span class="job-date">08.2024 – present</span></div>
+    <div>One man army — Product & Engineering (Side Project / Charity)</div>
+    <div class="tech-stack">Replaced Excel-based charity organization management with a web app. <a href="https://github.com/Good-Function/food-bank" target="_blank" class="contact-link">Repository link</a></div>
+    <ul>
+        <li>Built an operator app and a self-service app for partner charities.</li>
+        <li>Worked directly with a Board Member and the Distribution Coordinator.</li>
+        <li>Saved employees several hours per week and reduced data errors by ~30%.</li>
+        <li>Led effort to secure a $2,000/year Azure charity grant and set up the entire cloud infrastructure.</li>
+        <li>Operator portal scores in Google Lighthouse 
+            <div class="score-circles">
               <div class="score-circle" data-score="100">
                   <svg viewBox="0 0 48 48">
                       <circle class="circle-bg" cx="24" cy="24" r="22"/>
                       <circle class="circle-progress" cx="24" cy="24" r="22"/>
                   </svg>
                   <span class="score-value">100</span>
-                  <span class="score-label">PERF</span>
-              </div>
-              <div class="score-circle" data-score="98">
-                  <svg viewBox="0 0 48 48">
-                      <circle class="circle-bg" cx="24" cy="24" r="22"/>
-                      <circle class="circle-progress" cx="24" cy="24" r="22"/>
-                  </svg>
-                  <span class="score-value">98</span>
-                  <span class="score-label">A11Y</span>
+                  <span class="score-label">Performance</span>
               </div>
               <div class="score-circle" data-score="100">
                   <svg viewBox="0 0 48 48">
@@ -191,48 +233,39 @@
                       <circle class="circle-progress" cx="24" cy="24" r="22"/>
                   </svg>
                   <span class="score-value">100</span>
-                  <span class="score-label">SEO</span>
+                  <span class="score-label">Accessibility</span>
               </div>
-          </div>
-      </div>
-      <p>A retro terminal interface for web portfolios using raw HTML/CSS/JS. No frameworks attached.</p>
-  </div>
+              <div class="score-circle" data-score="100">
+                  <svg viewBox="0 0 48 48">
+                      <circle class="circle-bg" cx="24" cy="24" r="22"/>
+                      <circle class="circle-progress" cx="24" cy="24" r="22"/>
+                  </svg>
+                  <span class="score-value">100</span>
+                  <span class="score-label">Best Practices</span>
+              </div>
+              <div class="score-circle" data-score="100">
+                <svg viewBox="0 0 48 48">
+                    <circle class="circle-bg" cx="24" cy="24" r="22"/>
+                    <circle class="circle-progress" cx="24" cy="24" r="22"/>
+                </svg>
+                <span class="score-value">100</span>
+                <span class="score-label">SEO</span>
+              </div>
+            </div>
+       </li>
+    </ul>
+    <p><strong>Why it matters:</strong> better data improves the effectiveness of charitables work.</p>
+</div>
 
   <div class="job-entry">
-      <div class="project-header">
-          <div class="project-info">
-              <div class="job-title">AUTO-TRADER BOT</div>
-              <div class="tech-stack">STATUS: RUNNING</div>
-          </div>
-          <div class="score-circles">
-              <div class="score-circle" data-score="94">
-                  <svg viewBox="0 0 48 48">
-                      <circle class="circle-bg" cx="24" cy="24" r="22"/>
-                      <circle class="circle-progress" cx="24" cy="24" r="22"/>
-                  </svg>
-                  <span class="score-value">94</span>
-                  <span class="score-label">CODE</span>
-              </div>
-              <div class="score-circle" data-score="78">
-                  <svg viewBox="0 0 48 48">
-                      <circle class="circle-bg" cx="24" cy="24" r="22"/>
-                      <circle class="circle-progress" cx="24" cy="24" r="22"/>
-                  </svg>
-                  <span class="score-value">78</span>
-                  <span class="score-label">STBL</span>
-              </div>
-              <div class="score-circle" data-score="89">
-                  <svg viewBox="0 0 48 48">
-                      <circle class="circle-bg" cx="24" cy="24" r="22"/>
-                      <circle class="circle-progress" cx="24" cy="24" r="22"/>
-                  </svg>
-                  <span class="score-value">89</span>
-                  <span class="score-label">ROI</span>
-              </div>
-          </div>
-      </div>
-      <p>Python script using Pandas and Alpaca API to trade crypto based on sentiment analysis.</p>
+    <div class="job-title">SPEAKING & COMMUNITY</div>
+    <div class="tech-stack"><a href="https://github.com/marcingolenia/presentations" target="_blank" class="contact-link">Link to all my presentations.</a></div>
+    <ul>
+        <li>Speaker on HTMX: Webapps for tired engineers at 4Developers conference, Warsaw .NET Group, and Warsaw Golang Meetup.</li>
+        <li>Organizer and facilitator of Good Function meetup.</li>
+    </ul>
   </div>
+
 </template>
 
 <template id="template-contact">
@@ -285,7 +318,7 @@
   <h2>/// PDF EXPORT ///</h2>
   <p>EXPORT SYSTEM READY</p>
   <br>
-  <p>> This will generate a PDF version of your resume.</p>
+  <p>> This will generate a PDF version of the resume.</p>
   <p>> The print dialog will open - select "Save as PDF".</p>
   <br>
   <button id="start-download" class="download-btn">[ EXECUTE DOWNLOAD.EXE ]</button>
@@ -302,7 +335,6 @@
   <p id="snake-score" style="margin-top: 10px;">SCORE: 0</p>
 </template>
 
-    <!-- JavaScript Files (order matters - dependencies first) -->
     <script src="js/audio.js"></script>
     <script src="js/themes.js"></script>
     <script src="js/content.js"></script>

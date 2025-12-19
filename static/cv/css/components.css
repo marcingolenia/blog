@@ -1,5 +1,6 @@
 .job-entry {
   margin-bottom: 25px;
+  max-width: 800px;
 }
 
 .job-title {
@@ -14,7 +15,7 @@
 
 .tech-stack {
   color: var(--term-light);
-  font-size: 0.9rem;
+  font-size: .8em;
   margin-top: 5px;
 }
 
@@ -28,7 +29,6 @@
 
 .contact-link {
   color: var(--term-light);
-  text-decoration: none;
   transition: all 0.1s;
 }
 
@@ -80,8 +80,9 @@
 
 .score-circles {
   display: flex;
-  gap: 12px;
+  gap: 2em;
   flex-shrink: 0;
+  padding: 1em;
 }
 
 .score-circle {
@@ -118,7 +119,7 @@
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  font-size: 16px;
+  font-size: 1rem;
   font-weight: bold;
   color: var(--term-green);
   text-shadow: 0 0 6px rgba(var(--term-rgb), 0.8);
@@ -129,7 +130,7 @@
   bottom: -18px;
   left: 50%;
   transform: translateX(-50%);
-  font-size: 10px;
+  font-size: .9rem;
   color: var(--term-light);
   white-space: nowrap;
   text-transform: uppercase;
@@ -157,3 +158,5 @@
   transform: scale(0.98);
 }
 
+ul { list-style-type: "> "; }
+ul li { margin-bottom: .5em; }

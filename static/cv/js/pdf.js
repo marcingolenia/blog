@@ -68,26 +68,24 @@ function startPdfDownload() {
 function generatePrintableCV() {
   const contentScreen = document.getElementById("content-screen");
   
-  // Get content from templates
-  const experience = document.getElementById("template-experience")?.innerHTML || "";
-  const skills = document.getElementById("template-skills")?.innerHTML || "";
-  const projects = document.getElementById("template-projects")?.innerHTML || "";
+  const profile = document.getElementById("template-profile")?.innerHTML || "";
+  const work = document.getElementById("template-work")?.innerHTML || "";
+  const otherWork = document.getElementById("template-other-work")?.innerHTML || "";
 
   // Combine all sections for printing
   contentScreen.innerHTML = `
     <div class="print-header" style="text-align: center; margin-bottom: 30px;">
-      <h1 style="font-size: 2em; margin: 0;">MARCIN DEVELOPER</h1>
-      <p style="color: var(--term-light);">SENIOR SOFTWARE ENGINEER</p>
+      <h1 style="font-size: 2em; margin: 0;">MARCIN GOLENIA</h1>
+      <p style="color: var(--term-light);">Tech Lead / Staff Software Engineer</p>
       <p style="font-size: 0.9em; color: #888;">marcingolenia@gmail.com | github.com/marcingolenia | linkedin.com/in/marcin-golenia-228359183/</p>
     </div>
-    
-    ${experience}
-    ${skills}
-    ${projects}
+    ${profile}
+    ${work}
+    ${otherWork}
     
     <div style="margin-top: 30px; padding-top: 20px; border-top: 1px dashed var(--term-green);">
       <p style="text-align: center; color: #888; font-size: 0.8em;">
-        Generated from MARCIN_DEV.EXE v2.4.0 | Terminal Portfolio System
+        Generated from MARCIN_DEV.EXE v2.4.0 | I hereby give consent for my personal data included in my application to be processed for the purposes of the recruitment process.
       </p>
     </div>
   `;

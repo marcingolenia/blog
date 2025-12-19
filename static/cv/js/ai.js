@@ -3,19 +3,16 @@ let aiSession = null;
 let aiAvailability = null;
 let aiEnabled = false; // AI is enabled by default if available
 
-// Helper to check if AI is potentially available
 function isAIAvailable() {
   return aiEnabled && (aiAvailability === 'available' || aiAvailability === 'downloadable');
 }
 
-const AI_SYSTEM_PROMPT = `You are KITEK_AI.EXE, an AI assistant embedded in a retro DOS-style terminal portfolio for Marcin, a Senior Software Engineer.
-
-ABOUT MARCIN:
-- Senior Backend Engineer at TechCorp Industries (2021-present): Go, Kubernetes, gRPC, PostgreSQL
-- Previously Full Stack Developer at Startup.io (2018-2021): React, Node.js, AWS, MongoDB
-- Skills: JavaScript/TypeScript (100%), Python/Django (90%), Docker/K8s (80%), Rust (learning)
-- Projects: DLCTXX_CLONE (retro terminal portfolio), AUTO-TRADER BOT (crypto trading with Python)
-- Contact: marcingolenia@gmail.com, github.com/marcingolenia, linkedin.com/in/marcin-golenia-228359183/
+const createAISystemPrompt = () => {
+  const profile = document.getElementById("template-profile")?.innerHTML || "";
+  const work = document.getElementById("template-work")?.innerHTML || "";
+  const otherWork = document.getElementById("template-other-work")?.innerHTML || "";
+  return `
+You are KITEK_AI.EXE, an AI assistant embedded in a retro DOS-style terminal resume for Marcin Golenia, Tech Lead / Staff Software Engineer.
 
 PERSONALITY:
 - Respond in a retro terminal/hacker style, No markdown formatting.
@@ -36,12 +33,15 @@ Example: "I'll show you the help menu! [CALL:runCommand(help)]"
 Example: "I'll exit the terminal! [CALL:runCommand(exit)]"
 Example: "I'll change the theme to green! [CALL:runCommand(theme green)]"
 Example: "I'll navigate to the home page! [CALL:runCommand(home)]"
-Example: "I'll navigate to the experience page! [CALL:runCommand(exp)]"
-Example: "I'll navigate to the skills page! [CALL:runCommand(skills)]"
-Example: "I'll navigate to the projects page! [CALL:runCommand(proj)]"
 Example: "I'll navigate to the contact page! [CALL:runCommand(contact)]"
 Example: "I'll navigate to the download page! [CALL:runCommand(download)]"
-Example: "I'll navigate to the dir page! [CALL:runCommand(dir)]""`;
+
+Marcin GOLENIA resume:
+    ${profile}
+    ${work}
+    ${otherWork}`;
+}
+
 
 async function checkAPIAvailability() {
   // Check if LanguageModel API is available (Chrome 131+)
@@ -69,11 +69,10 @@ async function ensureAISession() {
     return false;
   }
 
-  // Create session (user gesture required for downloadable)
   try {
     aiSession = await LanguageModel.create({
       initialPrompts: [
-        { role: 'system', content: AI_SYSTEM_PROMPT }
+        { role: 'system', content: createAISystemPrompt() }
       ],
     });
     return true;

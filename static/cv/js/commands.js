@@ -146,7 +146,6 @@ ${dateStr}  07:30 AM    &lt;DIR&gt;          coffee_consumption_logs
   resizeInput();
 }
 
-// --- POWER OFF EFFECT ---
 function powerOff() {
   beep(200, 500, 0.1); // Low shutdown sound
   document.body.classList.add("power-off");

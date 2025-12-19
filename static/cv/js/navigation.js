@@ -12,7 +12,7 @@ function triggerSelection() {
   const target = selectedItem.getAttribute("data-target");
   navigateTo(target);
 }
--
+
 function navigateTo(key, pushHistory = true) {
   loadContent(key);
   if (pushHistory) {

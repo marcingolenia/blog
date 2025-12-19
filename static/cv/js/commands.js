@@ -1,9 +1,9 @@
 // --- COMMAND DEFINITIONS ---
 const commands = [
   { keywords: ["home", "cls", "clear"], index: 0, target: "home" },
-  { keywords: ["exp", "work"], index: 1, target: "experience" },
-  { keywords: ["skill"], index: 2, target: "skills" },
-  { keywords: ["proj"], index: 3, target: "projects" },
+  { keywords: ["exp", "work"], index: 1, target: "work" },
+  { keywords: ["profile"], index: 2, target: "profile" },
+  { keywords: ["other-work"], index: 3, target: "other-work" },
   { keywords: ["contact", "mail"], index: 4, target: "contact" },
   { keywords: ["download", "pdf", "print"], index: 5, target: "download" },
   { keywords: ["snake", "game", "play"], index: -1, target: "snake" },
@@ -95,23 +95,23 @@ ${dateStr}  07:30 AM    &lt;DIR&gt;          coffee_consumption_logs
 
   if (cleanCmd === "help") {
     const aiStatus = isAIAvailable() 
-      ? '<li>> Or just ASK ME ANYTHING! (AI-powered)</li>'
+      ? '<li> Or just ASK ME ANYTHING! (AI-powered)</li>'
       : '<li style="color: var(--term-dim)">> AI assistant unavailable (requires Chrome 127+)</li>';
     
     contentScreen.innerHTML = `
       <h2>/// HELP MENU ///</h2>
       <p>AVAILABLE COMMANDS:</p>
       <ul>
-        <li>> HOME / CLEAR</li>
-        <li>> EXP / WORK</li>
-        <li>> SKILLS</li>
-        <li>> PROJ / PROJECTS</li>
-        <li>> CONTACT</li>
-        <li>> DOWNLOAD / PDF / PRINT</li>
-        <li>> SNAKE / GAME / PLAY</li>
-        <li>> THEME [green|amber|white]</li>
-        <li>> DIR / LS</li>
-        <li>> EXIT / QUIT / SHUTDOWN</li>
+        <li> HOME / CLEAR - go to first page</li>
+        <li> EXP / WORK - go to professional work page</li>
+        <li> PROFILE - go to profile page</li>
+        <li> OTHER-WORK - go to other work page</li>
+        <li> CONTACT - go to contact page</li>
+        <li> DOWNLOAD / PDF / PRINT - download Marcin's resume</li>
+        <li> SNAKE / GAME / PLAY</li>
+        <li> THEME [green|amber|white] - change theme</li>
+        <li> DIR / LS</li>
+        <li> EXIT / QUIT / SHUTDOWN - shutdown the terminal</li>
         ${aiStatus}
       </ul>`;
   } else {
@@ -146,6 +146,7 @@ ${dateStr}  07:30 AM    &lt;DIR&gt;          coffee_consumption_logs
   resizeInput();
 }
 
+// --- POWER OFF EFFECT ---
 function powerOff() {
   beep(200, 500, 0.1); // Low shutdown sound
   document.body.classList.add("power-off");

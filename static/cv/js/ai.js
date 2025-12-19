@@ -260,16 +260,16 @@ const aiToolFunctions = {
       <h2>/// HELP MENU ///</h2>
       <p>AVAILABLE COMMANDS:</p>
       <ul>
-        <li>> HOME / CLEAR</li>
-        <li>> EXP / WORK</li>
-        <li>> SKILLS</li>
-        <li>> PROJ / PROJECTS</li>
-        <li>> CONTACT</li>
-        <li>> DOWNLOAD / PDF / PRINT</li>
-        <li>> SNAKE / GAME / PLAY</li>
-        <li>> THEME [green|amber|white]</li>
-        <li>> DIR / LS</li>
-        <li>> EXIT / QUIT / SHUTDOWN</li>
+        <li> HOME / CLEAR - go to first page</li>
+        <li> EXP / WORK - go to professional work page</li>
+        <li> PROFILE - go to profile page</li>
+        <li> OTHER-WORK - go to other work page</li>
+        <li> CONTACT - go to contact page</li>
+        <li> DOWNLOAD / PDF / PRINT - download Marcin's resume</li>
+        <li> SNAKE / GAME / PLAY</li>
+        <li> THEME [green|amber|white] - change theme</li>
+        <li> DIR / LS</li>
+        <li> EXIT / QUIT / SHUTDOWN - shutdown the terminal</li>
         ${aiStatus}
       </ul>`;
     if (typeof updateMenu === 'function') updateMenu();
